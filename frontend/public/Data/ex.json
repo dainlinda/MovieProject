@@ -1,0 +1,11 @@
+
+{
+    "posts" : [
+        {"id": 1, "name": "해리포터", "url": "/images/character/harry.png"},
+        {"id": 2, "name": "헤르미온느", "url": "/images/character/Hermione.png"},
+        {"id": 2, "name": "지니", "url": "/images/character/jinny.png"},
+        {"id": 2, "name": "루나", "url": "/images/character/luna.png"},
+        {"id": 2, "name": "말포이", "url": "/images/character/malfoy.png"},
+        {"id": 2, "name": "론", "url": "/images/character/rone.png"}
+  ]
+}

@@ -1,0 +1,8 @@
+.pageTitle { font-size: 46px; line-height: 1; color: #fff; font-weight: 600; text-align: center; }
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
