@@ -27,6 +27,12 @@ function SamplePrevArrow(props) {
 
 export default class Carousel extends Component {
   render() {
+    const {setCharacters} = this.props;
+
+    const onClickBtnHandler = (e) => {
+      setCharacters(e.target.value);
+      console.log(e.target.value);
+  }
     const settings = {
       infinite: true,
       speed: 500,   
@@ -49,7 +55,7 @@ export default class Carousel extends Component {
         <Slider style={{width:800}} {...settings}>
           {data.map(function(d, idx){
             return (<div key={idx} style={{display:"flex", flexDirection:"column"}}>
-                      <Button variant="dark">
+                      <Button variant="dark" value={d.id} onClick={onClickBtnHandler}>
                         <Image
                           priority
                           src={d.url}

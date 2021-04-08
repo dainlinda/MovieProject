@@ -3,21 +3,24 @@ import Layout from "../components/Layout";
 import Image from 'next/image'
 import characterStyle from '../styles/character.module.css'
 import Carousel from '../components/carousel'
-import axios from "axios";
+import WordCloud from '../components/wordcloud'
 
 function Character() {
-    const [characters, setCharacters] = useState(0)
-    
-    const onClickHandler = (e) => {
-        setCharacter()
-    }
-    
+    const [characters, setCharacters] = useState(1);
+    const [analyses, setAnalyses] = useState([]);
 
+    useEffect(() => {
+        console.log(characters)
+    }, [characters])
+    
     return (
     <Layout>
         <div className={characterStyle.container}>
             <div className={characterStyle.imgwrap}>
-            <Carousel/>
+            <Carousel setCharacters= {setCharacters}/>
+            </div>
+            <div>
+                <WordCloud id={characters}/>
             </div>
             <div className="row" style={{marginTop:100}}>
                 <div className="col" style={{marginRight:50}}>
