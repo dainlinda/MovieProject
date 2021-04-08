@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Layout from "../components/Layout";
 import Image from 'next/image'
 import balanceStyle from '../styles/balance.module.css'
+import axios from 'axios'
 
-function Character() {
+function Character(props) {
     const [balancedata, setbalancedata] = useState([])
+    
+    useEffect(() => {
+
+    }, [])
     
     return (
     <Layout>
