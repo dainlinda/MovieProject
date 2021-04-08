@@ -1,8 +1,8 @@
 .pageCaption { padding-top: 170px; }
 .pageTitle { font-size: 46px; line-height: 1; color: #fff; font-weight: 600; text-align: center; }
 
-/* .textBlack { color: black; } */
 
+/* The Modal (background) */
 .modal {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -21,6 +21,7 @@
     display: block;
     width: 80%;
     max-width: 700px;
+    cursor: pointer;
 }
 
 .caption { 
@@ -31,6 +32,7 @@
     transform: translate(-50%,-50%);
 }
 
+/* Add Animation */
 .modalImg {  
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.4s;
@@ -50,9 +52,9 @@
 
 .caption {  
     -webkit-animation-name: fadein;
-    -webkit-animation-duration: 3.5s;
+    -webkit-animation-duration: 4s;
     animation-name: fadein;
-    animation-duration: 3.5s;
+    animation-duration: 4s;
 }
 
 @-webkit-keyframes fadein {
@@ -65,12 +67,14 @@
     to {opacity: 1;}
 }
 
+/* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px){
     .modalContent {
         width: 100%;
     }
 }
 
+/* index 편지 */
 .mainImg {
     border-radius: 5px;
     cursor: pointer;

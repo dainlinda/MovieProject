@@ -1,4 +1,40 @@
 {
-    "character": "character_speech.png",
+    "character": [
+        {
+            "id": 1, 
+            "name": "해리포터", 
+            "speech_cnt": 100
+        },
+        {
+            "id": 2, 
+            "name": "헤르미온느", 
+            "speech_cnt": 150
+        },
+        {
+            "id": 3, 
+            "name": "론", 
+            "speech_cnt": 50
+        },
+        {
+            "id": 4, 
+            "name": "말포이", 
+            "speech_cnt": 1000
+        },
+        {
+            "id": 5, 
+            "name": "스네이프", 
+            "speech_cnt": 1500
+        },
+        {
+            "id": 6, 
+            "name": "해그리드", 
+            "speech_cnt": 200
+        },
+        {
+            "id": 7, 
+            "name": "덤블도어", 
+            "speech_cnt": 300
+        }
+    ],
     "top5": [[5,"스네이프"],[4,"말포이"],[2,"헤르미온느"],[1,"해리포터"],[3,"론"]]
 }
