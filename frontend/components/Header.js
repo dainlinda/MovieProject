@@ -13,7 +13,7 @@ const Header = () => (
                     <Nav.Link href="/series">해리포터 시리즈 분석</Nav.Link>
                     <Nav.Link href="/character" >해리포터 캐릭터 분석</Nav.Link>
                     <NavDropdown title="유저상호작용" id="basic-nav-dropdown" > 
-                        <NavDropdown.Item href="/letter" >랜덤편지</NavDropdown.Item>
+                        <NavDropdown.Item href="/novel" >랜덤편지</NavDropdown.Item>
                         <NavDropdown.Item href="/balance">밸런스 게임</NavDropdown.Item>
                         <NavDropdown.Item href="#">친구찾기</NavDropdown.Item>
                     </NavDropdown>
