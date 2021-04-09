@@ -48,13 +48,20 @@ export default class Carousel extends Component {
         {"id": 3, "name": "지니", "url": "/images/character/jinny.png"},
         {"id": 4, "name": "루나", "url": "/images/character/luna.png"},
         {"id": 5, "name": "말포이", "url": "/images/character/malfoy.png"},
-        {"id": 6, "name": "론", "url": "/images/character/rone.png"}
+        {"id": 6, "name": "론", "url": "/images/character/rone.png"},
+        {"id": 7, "name": "해리포터", "url": "/images/character/harry.png"},
+        {"id": 8, "name": "헤르미온느", "url": "/images/character/Hermione.png"},
+        {"id": 9, "name": "지니", "url": "/images/character/jinny.png"},
+        {"id": 10, "name": "루나", "url": "/images/character/luna.png"},
+        {"id": 11, "name": "말포이", "url": "/images/character/malfoy.png"},
+        {"id": 12, "name": "론", "url": "/images/character/rone.png"}
     ]
     return (
       <div>
         <Slider style={{width:800}} {...settings}>
           {data.map(function(d, idx){
-            return (<div key={idx} style={{display:"flex", flexDirection:"column"}}>
+            return (
+                    <div key={idx} style={{display:"flex", flexDirection:"column"}}>
                       <Button variant="dark" value={d.id} onClick={onClickBtnHandler}>
                         <Image
                           priority
@@ -62,9 +69,10 @@ export default class Carousel extends Component {
                           width={100}
                           height={100}/>
                         <br/>
-                        {d.name}
+                        {d.name}{d.id}
                       </Button>
-                    </div>)
+                    </div>
+                  )
           })}
         </Slider>
       </div>
