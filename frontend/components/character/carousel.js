@@ -29,10 +29,7 @@ export default class Carousel extends Component {
   render() {
     const {setCharacters} = this.props;
 
-    const onClickBtnHandler = (e) => {
-      setCharacters(e.target.value);
-      console.log(e.target.value);
-  }
+
     const settings = {
       infinite: true,
       speed: 500,   
@@ -61,15 +58,15 @@ export default class Carousel extends Component {
         <Slider style={{width:800}} {...settings}>
           {data.map(function(d, idx){
             return (
-                    <div key={idx} style={{display:"flex", flexDirection:"column"}}>
-                      <Button variant="dark" value={d.id} onClick={onClickBtnHandler}>
+                    <div key={idx} style={{display:"flex", flexDirection:"column"}} >
+                      <Button variant="dark" onClick={() => setCharacters(d.id)}>
                         <Image
                           priority
                           src={d.url}
                           width={100}
                           height={100}/>
                         <br/>
-                        {d.name}{d.id}
+                        {d.name}
                       </Button>
                     </div>
                   )
