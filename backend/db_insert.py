@@ -17,12 +17,12 @@ db = UseDB()
 #                 db.emotions_insert(row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],each[0])
 
 # # speech 데이터 삽입
-# with open('data/db data/speech.csv','r') as file:
-#     csvreader = csv.reader(file)
-#     for row in csvreader:
-#         db.speech_insert(row[1],row[2])
+with open('data/db data/speech.csv','r') as file:
+    csvreader = csv.reader(file)
+    for row in csvreader:
+        db.speech_insert(row[1],row[2])
 
-# speech 데이터 삽입
+# spell 데이터 삽입
 with open('sangmin/spells.csv','r') as file:
     csvreader = csv.reader(file)
     for row in csvreader:

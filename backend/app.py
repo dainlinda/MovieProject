@@ -1,22 +1,98 @@
-from flask import Flask 
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, jsonify
+
+#api spec swagger
+from flasgger import Swagger
+from flasgger.utils import swag_from
+from flask_restful import Api, Resource
+from flasgger import LazyString, LazyJSONEncoder
+
+import json
+import numpy as np
+#db
+# from flask_sqlalchemy import SQLAlchemy
+from usedb import UseDB
+db = UseDB()
+
+def add_2_numbers(num1, num2):
+    output = {"sum_of_numbers": 0}
+    sum_of_2_numbers = num1 + num2
+    output["sum_of_numbers"] = sum_of_2_numbers
+    return output
+
 
 app = Flask(__name__)
+app.config["SWAGGER"] = {"title": "Swagger-UI", "uiversion": 2}
 
-'''
-# sqlAlchemy 관련 코드
-# config.py 설정파일
-app.config.from_object('config')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'flasknotewithsqlalchemy'
-db = SQLAlchemy(app)
-'''
+swagger_config = {
+    "headers": [],
+    "specs": [
+        {
+            "endpoint": "apispec_1",
+            "route": "/apispec_1.json",
+            "rule_filter": lambda rule: True,  # all in
+            "model_filter": lambda tag: True,  # all in
+        }
+    ],
+    "static_url_path": "/flasgger_static",
+    # "static_folder": "static",  # must be set by user
+    "swagger_ui": True,
+    "specs_route": "/swagger/",
+}
 
-# from app import views, models
+template = dict(
+    swaggerUiPrefix=LazyString(lambda: request.environ.get("HTTP_X_SCRIPT_NAME", ""))
+)
 
-@app.route('/') 
-def hello(): 
-    return 'Hello, World!'
+app.json_encoder = LazyJSONEncoder
+api = Api(app)
+swagger = Swagger(app, config=swagger_config, template=template)
+
+
+@app.route("/")
+def index():
+    return "Add 2 Numbers!"
+
+
+@app.route("/add_2_numbers", methods=["POST"])
+@swag_from("swagger_config.yml")
+def add_numbers():
+    input_json = request.get_json()
+    try:
+        num1 = int(input_json["x1"])
+        num2 = int(input_json["x2"])
+        res = add_2_numbers(num1, num2)
+    except:
+        res = {"success": False, "message": "Unknown error"}
+
+    return json.dumps(res)
+
+# class Username(Resource):
+#     def get(self, username):
+#        """
+#        This examples uses FlaskRESTful Resource
+#        It works also with swag_from, schemas and spec_dict
+#        ---
+#        parameters:
+#          - in: path
+#            name: username
+#            type: string
+#            required: true
+#        responses:
+#          200:
+#            description: A single user item
+#            schema:
+#              id: User
+#              properties:
+#                username:
+#                  type: string
+#                  description: The name of the user
+#                  default: Steven Wilson
+#         """
+#         return {'username': username}, 200
+
+
+# api.add_resource(Username, '/username/<username>')
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True, threaded=False)

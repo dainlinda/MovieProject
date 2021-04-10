@@ -1,0 +1,22 @@
+summary: "캐릭터 별 대사량"
+description: "대사량 많은 순으로 캐릭터를 정렬해서 보내줌. top5도 따로 보내줌"
+produces:
+- "application/json"
+responses:
+  405:
+    description: "Invalid input"
+  200:
+    description: "정보전달 성공"
+    schema:
+      type: "object"
+      properties:
+        characters:
+          type: object
+          properties:
+            id:
+              type: number
+            name:
+              type: string
+            speech_count:
+              tpye: number
+    
