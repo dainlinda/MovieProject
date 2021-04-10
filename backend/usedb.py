@@ -56,6 +56,14 @@ class UseDB:
         with self.con.cursor() as cursor:
             cursor.execute(sql, (spells_id,characters_id))
         self.con.commit()
+    #balance_game_options
+    def balance_game_options_select(self):
+        sql = ''' select * from balance_game_options;  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        self.con.commit()
+        return result
  
 
 
