@@ -1,73 +1,65 @@
-import React, { useState, useEffect } from 'react'
-import Layout from "../components/Layout";
-import indexStyles from '../styles/index.module.css'
-import Image from 'next/image'
-import letterData from '../public/Data/random_letter.json'
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
 
-function Index() {
-    
-    const [character, setCharacter] = useState("")
-    const [place, setPlace] = useState("")
-    const [food, setFood] = useState("")
-    const [creature, setCreature] = useState("")
+export default function Home() {
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Create Next App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-    const [modal, setModal] = useState(false)
-    
-    useEffect(() => {
-        setCharacter(letterData.data.character)
-        setPlace(letterData.data.place)
-        setFood(letterData.data.food)
-        setCreature(letterData.data.creature)
-    }, [])
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
+        </h1>
 
-    const onClickModalHandler = (e) => {
-        setModal(true)
-    }
+        <p className={styles.description}>
+          Get started by editing{' '}
+          <code className={styles.code}>pages/index.js</code>
+        </p>
 
-    
-    return (
-    <Layout>
-        <div className="page-header" >
-            <div className="container">
-                <div className="row">
-                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div className={indexStyles.pageCaption}>
-                            <h1 className={indexStyles.pageTitle}>편지가 도착했습니다.</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div className={styles.grid}>
+          <a href="https://nextjs.org/docs" className={styles.card}>
+            <h3>Documentation &rarr;</h3>
+            <p>Find in-depth information about Next.js features and API.</p>
+          </a>
+
+          <a href="https://nextjs.org/learn" className={styles.card}>
+            <h3>Learn &rarr;</h3>
+            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          </a>
+
+          <a
+            href="https://github.com/vercel/next.js/tree/master/examples"
+            className={styles.card}
+          >
+            <h3>Examples &rarr;</h3>
+            <p>Discover and deploy boilerplate example Next.js projects.</p>
+          </a>
+
+          <a
+            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            className={styles.card}
+          >
+            <h3>Deploy &rarr;</h3>
+            <p>
+              Instantly deploy your Next.js site to a public URL with Vercel.
+            </p>
+          </a>
         </div>
-        <br/>
-        <div className={indexStyles.mainImg}>
-            <Image
-                priority
-                src="/images/owlletter.png"
-                width={600}
-                height={504}
-                onClick={onClickModalHandler}
-            />
-        </div>
-        {modal ? (
-            <div className={indexStyles.modal} onClick={() => setModal(false)}>
-                {/* <span className="close" >&times;</span> */}
-                <Image className={indexStyles.modalImg} priority src="/images/letter.png" width={600} height={750} />
-                <div className={indexStyles.caption}>
-                    <h3>안녕?</h3><br/>
-                    <p>난 {character}야!</p>
-                    <p>내가 편지를 보냈다는 걸 아무도 알아선 안돼.</p>
-                    <p>내일 저녁 6시 {place}(으)로 가.</p>
-                    <p>거기서 {food}을/를 먹고 있는 자를 찾아.</p>
-                    <p>그가 너에게 무엇을 해야할지 알려줄거야. </p>
-                    <p>가는 길에 {creature}을/를 조심해!</p>
-                </div>
+      </main>
 
-            </div>
-        ) : (
-            ""
-        )}
-    </Layout>
-    )
+      <footer className={styles.footer}>
+        <a
+          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Powered by{' '}
+          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
+        </a>
+      </footer>
+    </div>
+  )
 }
-
-export default Index;
