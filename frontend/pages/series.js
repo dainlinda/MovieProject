@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Layout from "../components/Layout";
 import seriesStyles from '../styles/series.module.css';
 import {Bar, Pie} from 'react-chartjs-2';
+import axios from 'axios';
+import url from '../../config/config'
 
 import seriesCharacterData from '../public/Data/series_character.json'
 import seriesSpellData from '../public/Data/series_spell.json'
@@ -17,6 +19,14 @@ function Series({ charaterData, spellsData }) {
     const [allSeriesCntList, setAllSeriesCntList] = useState([])
     const [seriesList, setSeriesList] = useState([])
     
+    const stickColor = ["rgba(193, 246, 237, 0.4)", "rgba(2, 53, 60, 0.4)", "rgba(68, 147, 36, 0.4)", "rgba(46, 175, 125, 0.4)", "rgba(63, 208, 201, 0.4)"]
+    const hoverStickColor = ["rgba(193, 246, 237, 1)", "rgba(2, 53, 60, 1)", "rgba(68, 147, 36, 1)", "rgba(46, 175, 125, 1)", "rgba(63, 208, 201, 1)"]
+
+    function repeat(arr, len) {
+        while (arr.length < len) arr = arr.concat(arr.slice(0, len-arr.length));
+        return arr;
+    }
+
     useEffect(() => {
         
         setTop5List(charaterData.top5)
@@ -37,27 +47,11 @@ function Series({ charaterData, spellsData }) {
     const data = {
         labels: nameList,
         datasets: [{
-          label: '각 캐릭터의 대사수',
-          data: cntList,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-          ],
-          borderWidth: 1
+            label: '각 캐릭터의 대사수',
+            data: cntList,
+            backgroundColor: repeat(stickColor, cntList.length),
+            borderColor: repeat(stickColor, cntList.length),
+            borderWidth: 1
         }]
     }
 
@@ -72,33 +66,11 @@ function Series({ charaterData, spellsData }) {
     const allSpellsData = {
         labels: allSeriesNameList,
         datasets: [{
-          label: '전시리즈의 주문수',
-          data: allSeriesCntList,
-          backgroundColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 205, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(201, 203, 207, 1)',
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(255, 205, 86, 1)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)',
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)'
-          ],
-          borderWidth: 1
+            label: '전시리즈의 주문수',
+            data: allSeriesCntList,
+            backgroundColor: repeat(stickColor, allSeriesCntList.length),
+            borderColor: repeat(hoverStickColor, allSeriesCntList.length),
+            borderWidth: 1
         }]
     }
 
@@ -108,20 +80,14 @@ function Series({ charaterData, spellsData }) {
             labels: Object.keys(series.spell),
             datasets: [{
                 data: Object.values(series.spell),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(255, 205, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(54, 162, 235, 1)'
-                ],
+                backgroundColor: repeat(stickColor, Object.values(series.spell).length),
                 hoverOffset: 30,
                 borderColor: false
             }]
         };
         return(
             <div className="col-4" key={idx}>
-                <p style={{ marginTop: "1rem", marginBottom: "1rem" }} >{series.title}</p>
+                <p style={{ marginTop: "2rem", marginBottom: "1rem" }} >{series.title}</p>
                 <div>
                     <Pie
                         data={piedata}
@@ -181,11 +147,11 @@ function Series({ charaterData, spellsData }) {
                         </div>
                         <div className="col-4" style={{ lineHeight: '2.5em' }}>
                             {top5}
-                            캐릭터명을 선택하면 상세페이지 이동합니다.
+                            캐릭터명을 선택하면 캐릭터 분석 페이지로 이동합니다.
                         </div>
                     </div>
 
-                    <p className={seriesStyles.pageTitle}>전체 시리즈 주문 그래프</p><br/>
+                    <p className={seriesStyles.pageTitle}>전체 시리즈 사용 주문 그래프</p><br/>
                     <div className="row" >
                         <Bar
                             data={allSpellsData}
