@@ -20,5 +20,6 @@ db = UseDB()
 # jsonify(character = character, place = place, food = food, creature = creature, item = item)
 
 #정서 분석
-result = db.emotions_select(1)
-print(min(result[1:9]))
+result = db.random_data_format_select()
+rand_num = random.randint(1,6)
+print(result[rand_num][1])

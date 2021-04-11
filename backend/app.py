@@ -44,6 +44,40 @@ api = Api(app)
 swagger = Swagger(app, config=swagger_config, template=template)
 
 #------------------------------------------------------------------------
+def random_data():
+    result = db.random_data_select()
+    character1 = result[random.randint(0,51)][2].strip()
+    character2 = result[random.randint(0,51)][2].strip()
+    place = result[random.randint(52,91)][2].strip()
+    food = result[random.randint(92,111)][2].strip()
+    creature = result[random.randint(112,125)][2].strip()
+    spell = result[random.randint(126,161)][2].strip()
+    item = result[random.randint(162,185)][2].strip()
+    return character1, character2, place, food, creature, spell, item
+
+# 랜덤 편지 api
+class RandomLetters(Resource):
+    @swag_from("swagger_config/random_letters.yml")
+    def get(self):
+        character1, character2, place, food, creature, spell, item = random_data()
+        result = db.random_data_format_select()[0][1]
+        letter = result.format(character1 = character1, character2 = character2, place = place, food = food, creature = creature, spell = spell, item = item)
+        return jsonify(letter = letter)
+
+api.add_resource(RandomLetters, '/random/letters')
+
+# 랜덤 소설 api
+class RandomNovels(Resource):
+    @swag_from("swagger_config/random_novels.yml")
+    def get(self):
+        character1, character2, place, food, creature, spell, item = random_data()
+        rand_num = random.randint(1,6)
+        result = db.random_data_format_select()[rand_num][1]
+        novel = result.format(character1 = character1, character2 = character2, place = place, food = food, creature = creature, spell=spell, item = item)
+        return jsonify(novel = novel)
+
+api.add_resource(RandomNovels, '/random/novels')
+
 # 밸런스 게임 문제 api
 class BalanceGameOptions(Resource):
     @swag_from("swagger_config/balance_game_options.yml")
@@ -56,21 +90,6 @@ class BalanceGameOptions(Resource):
 
 api.add_resource(BalanceGameOptions, '/games/balance/option')
 
-# 랜덤 데이터 api
-class RandomData(Resource):
-    @swag_from("swagger_config/random_data.yml")
-    def get(self):
-        result = db.random_data_select()
-
-        character = result[random.randint(1,52)][2].strip()
-        place = result[random.randint(53,92)][2].strip()
-        food = result[random.randint(93,112)][2].strip()
-        creature = result[random.randint(113,126)][2].strip()
-        item = result[random.randint(127,186)][2].strip()
-
-        return jsonify(character = character, place = place, food = food, creature = creature, item = item)
-
-api.add_resource(RandomData, '/letters/random/data')
 
 # 각 캐릭터 정서 api
 class Emotions(Resource):

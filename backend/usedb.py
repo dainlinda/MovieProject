@@ -72,6 +72,14 @@ class UseDB:
             result = cursor.fetchall()
         self.con.commit()
         return result    
+    #random_letters
+    def random_data_format_select(self):
+        sql = ''' select * from random_data_format;  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        self.con.commit()
+        return result    
     #emotions
     def emotions_select(self, characters_id):
         sql = ''' select * from emotions where characters_id = %s;  '''
