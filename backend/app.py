@@ -72,5 +72,26 @@ class RandomData(Resource):
 
 api.add_resource(RandomData, '/letters/random/data')
 
+# 각 캐릭터 정서 api
+class Emotions(Resource):
+    @swag_from("swagger_config/emotions.yml")
+    def get(self,characters_id=None):
+        result = db.emotions_select(characters_id)
+
+        return jsonify(characters_id = result[9], 
+        emotions={"anger":result[1], 
+                   "fear": result[2], 
+                    "anticipation": result[3],
+                    "trust": result[4],
+                    "surprise": result[5],
+                    "sadness": result[6],
+                    "joy": result[7],
+                    "disgust": result[8]
+                  },
+        max_emotion = max(result[1:9]),
+        min_emotion = min(result[1:9]))
+
+api.add_resource(Emotions, '/characters/<characters_id>/emotions')
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True, threaded=False)

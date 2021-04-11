@@ -11,10 +11,14 @@ db = UseDB()
 # print({'options': options})
 
 #랜덤데이터
-result = db.random_data_select()
-character = result[random.randint(1,52)]
-place = result[random.randint(53,92)]
-food = result[random.randint(93,112)]
-creature = result[random.randint(113,126)]
-item = result[random.randint(127,186)]
-jsonify(character = character, place = place, food = food, creature = creature, item = item)
+# result = db.random_data_select()
+# character = result[random.randint(1,52)]
+# place = result[random.randint(53,92)]
+# food = result[random.randint(93,112)]
+# creature = result[random.randint(113,126)]
+# item = result[random.randint(127,186)]
+# jsonify(character = character, place = place, food = food, creature = creature, item = item)
+
+#정서 분석
+result = db.emotions_select(1)
+print(min(result[1:9]))

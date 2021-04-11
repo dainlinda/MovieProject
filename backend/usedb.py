@@ -72,7 +72,14 @@ class UseDB:
             result = cursor.fetchall()
         self.con.commit()
         return result    
- 
+    #emotions
+    def emotions_select(self, characters_id):
+        sql = ''' select * from emotions where characters_id = %s;  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (characters_id))
+            result = cursor.fetchone()
+        self.con.commit()
+        return result     
 
 
 if __name__ == "__main__":
