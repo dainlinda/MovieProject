@@ -64,6 +64,14 @@ class UseDB:
             result = cursor.fetchall()
         self.con.commit()
         return result
+    #random_data
+    def random_data_select(self):
+        sql = ''' select * from random_data;  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        self.con.commit()
+        return result    
  
 
 
