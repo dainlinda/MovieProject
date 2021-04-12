@@ -39,13 +39,14 @@ function Index() {
             </div>
         </div>
         <br/>
-        <div className={indexStyles.mainImg}>
+        <div >
             <Image
                 priority
                 src="/images/owlletter.png"
                 width={600}
                 height={504}
                 onClick={onClickModalHandler}
+                className={indexStyles.mainImg}
             />
         </div>
         {modal ? (
