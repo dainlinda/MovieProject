@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 # Flasgger
 from flasgger import Swagger
 from flasgger.utils import swag_from
-from flask_restful import Api, Resource
+from flask_restful import reqparse, Api, Resource
 from flasgger import LazyString, LazyJSONEncoder
 
 # DB
@@ -90,6 +90,34 @@ class BalanceGameOptions(Resource):
 
 api.add_resource(BalanceGameOptions, '/games/balance/option')
 
+# 밸런스 게임 응답 api
+parser = reqparse.RequestParser()
+parser.add_argument('left')
+parser.add_argument('right')
+
+class BalanceGameResponses(Resource):
+    @swag_from("swagger_config/balance_game_options_get.yml")
+    def get(self, balance_game_options_id=None):
+        result = db.balance_game_responses_select(balance_game_options_id)
+        left = result[1]
+        right = result[2]
+        total = left+right
+        if total == 0:
+            return jsonify(balance_game_options_id = balance_game_options_id, left = 0, right = 0)
+        else:
+            return jsonify(balance_game_options_id = balance_game_options_id, left = left/total*100, right = right/total*100)
+    @swag_from("swagger_config/balance_game_options_post.yml")
+    def post(self, balance_game_options_id=None):
+        args = parser.parse_args()
+        msg = ''
+        result = db.balance_game_responses_select(balance_game_options_id)
+        left = result[1]+int(args['left'])
+        right = result[2]+int(args['right'])
+        db.balance_game_responses_update(left,right,balance_game_options_id)
+        msg = 'balance_game_options_id: {balance_game_options_id}, left: {left}, right: {right}'.format(balance_game_options_id = balance_game_options_id, left=left, right = right)
+        return jsonify(msg = msg)
+
+api.add_resource(BalanceGameResponses, '/games/balance/response/<balance_game_options_id>')
 
 # 각 캐릭터 정서 api
 class Emotions(Resource):
