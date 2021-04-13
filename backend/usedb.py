@@ -76,9 +76,12 @@ class UseDB:
         sql = ''' update `balance_game_responses` set `left` = %s, `right` = %s where `balance_game_options_id` = %s;  '''
         with self.con.cursor() as cursor:
             cursor.execute(sql, (left, right, balance_game_options_id))
-            result = cursor.fetchone()
+        self.con.commit() 
+    def balance_game_responses_insert(self, left, right, balance_game_options_id):
+        sql = ''' insert into balance_game_responses(`left`, `right`, `balance_game_options_id`) values (%s, %s, %s);  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (left, right, balance_game_options_id))
         self.con.commit()
-        return result    
     #random_data
     def random_data_select(self):
         sql = ''' select * from random_data;  '''
