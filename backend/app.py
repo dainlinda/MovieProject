@@ -114,7 +114,7 @@ class BalanceGameOptions(Resource):
         result = db.balance_game_options_select()
         options = []
         for row in result:
-            options.append({'id': row[0], 'option': row[1], 'image': row[2]})
+            options.append({'id': row[0], 'option1': row[1].split(' vs ')[0], 'option2': row[1].split(' vs ')[1] })
         return jsonify(options = options)
 api.add_resource(BalanceGameOptions, '/games/balance/option')
 # 밸런스 게임 응답 api
