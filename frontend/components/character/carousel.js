@@ -19,7 +19,7 @@ function SamplePrevArrow(props) {
   return (
     <div
       className={className}
-      style={{ ...style, display: "block"}}
+      style={{ ...style, display: "block", fontSize: 30}}
       onClick={onClick}
     />
   );
@@ -56,17 +56,17 @@ export default class Carousel extends Component {
     return (
       <div>
         <Slider style={{width:800}} {...settings}>
-          {data.map(function(d, idx){
+          {data.map(function(character, idx){
             return (
                     <div key={idx} style={{display:"flex", flexDirection:"column"}} >
-                      <Button variant="dark" onClick={() => setCharacters(d.id)}>
+                      <Button variant="dark" onClick={() => setCharacters(character.id)}>
                         <Image
                           priority
-                          src={d.url}
+                          src={character.url}
                           width={100}
                           height={100}/>
                         <br/>
-                        {d.name}
+                        {character.name}
                       </Button>
                     </div>
                   )

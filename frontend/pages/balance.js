@@ -3,14 +3,14 @@ import Layout from "../components/Layout";
 import balanceStyle from '../styles/balance.module.css'
 import axios from 'axios'
 import { Button } from 'react-bootstrap';
-import {HorizontalBar, Bar} from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
-function Character(props) {
+function Balance(props) {
     const [number, setNumber] = useState(0);
     const [result, setResult] = useState([])
-    console.log(result.left)
+    console.log(props.balance.options);
     const res_data = {
-        labels: [props.balance.balance[number].option1,props.balance.balance[number].option2],
+        labels: [props.balance.options[number].option1,props.balance.options[number].option2],
         datasets: [{
             axis: 'y',
             label: 'Random Games',
@@ -44,7 +44,7 @@ function Character(props) {
     }
     const onClickNextHandler = (e) => {
         console.log(number);
-        if(number < props.balance.balance.length-1){
+        if(number < props.balance.options.length-1){
             setNumber(number+1);
         }
         else{
@@ -54,11 +54,21 @@ function Character(props) {
         setResult([])
     }
     
-    const onClicktHandler = () => {
-        axios.post('https://mca-back-api.herokuapp.com/api/balance').then(response => {
-            console.log(response);
-            setResult(response.data.balance_result);
-            console.log(result);
+    const onClickLeftHandler = () => {
+        const data ={"left":1, "right":0}
+        const choose = number + 1;
+        axios.post('http://localhost:5000/games/balance/response/'+choose,data).then(response => {
+            console.log(response.data)
+            setResult(response.data);
+        });
+    }
+
+    const onClickRightHandler = () => {
+        const data ={"left":0, "right":1}
+        const choose = number + 1;
+        axios.post('http://localhost:5000/games/balance/response/'+choose,data).then(response => {
+            console.log(response.data)
+            setResult(response.data);
         });
     }
 
@@ -68,14 +78,14 @@ function Character(props) {
         <div className={balanceStyle.container}>
             <div style={{marginTop:80}}>
                 <div className="row" style={{height:100}} >
-                    <div className="col-5" onClick={onClicktHandler}>
-                        <h1>{props.balance.balance[number].option1}</h1>
+                    <div className="col-5" onClick={onClickLeftHandler}>
+                        <h1>{props.balance.options[number].option1}</h1>
                     </div>
                     <div className="col-2">
                         <h1>vs</h1>
                     </div>
-                    <div className="col-5" onClick={onClicktHandler}>
-                        <h1>{props.balance.balance[number].option2}</h1>
+                    <div className="col-5" onClick={onClickRightHandler}>
+                        <h1>{props.balance.options[number].option2}</h1>
                     </div>
                 </div>
                 <div style={{marginTop:80}}>
@@ -95,10 +105,10 @@ function Character(props) {
     </Layout>
     )
 }
-Character.getInitialProps = async function() {
-    const {data: balance} = await axios.get('https://mca-back-api.herokuapp.com/api/balance');
+Balance.getInitialProps = async function() {
+    const {data: balance} = await axios.get('http://localhost:5000/games/balance/option');
     return {
       balance
     };
   }
-export default Character;
+export default Balance;
