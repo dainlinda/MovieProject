@@ -131,24 +131,34 @@ class Series_spell(Resource):
 api.add_resource(Series_spell, '/series/spell')
 
 ## 3. 해리 포터 캐릭터 분석 페이지
-# 3-1. 캐릭터 api (id, 이름, 이미지, wordcloud)
+# 3-1. 캐러셀 캐릭터 api (id, 이름, 이미지)
 class Characters(Resource):
     @swag_from("swagger_config/characters.yml")
     def get(self):
         characters = []
         for row in db.series_speech_select(30):
             if db.spells_search_hasid(row[0]) != None and row[0] != 'Alastor Moody':
-                characters.append({'id': row[0], 'name': character_name(row[0]), 'image': character_name(row[0]) + '.png', 'wordcloud': character_name(row[0]) + ' wordcloud.png'}) 
+                characters.append({'id': row[0], 'name': character_name(row[0]), 'image': character_name(row[0]).replace(" ","") + '.png'}) 
         return jsonify(characters = characters)
 api.add_resource(Characters, '/characters')
-# 3-2. 캐릭터별 마법주문 빈도 api
-# 3-3. 캐릭터별 정서 api
-class Emotions(Resource):
-    @swag_from("swagger_config/emotions.yml")
+
+# 3-2번 페이지 정보 받아오는 api
+class Characters_info(Resource):
+    @swag_from("swagger_config/characters_info.yml")
     def get(self,characters_id=None):
+        # 3-1. 워드클라우드 API
+        # 3-2. 캐릭터별 마법주문 빈도 api
+        result = db.spells_character_select(characters_id)
+        spells = {}
+        for row in result:
+            spells[row[1]] = row[2]
+        # 3-3. 캐릭터별 정서 api
         result = db.emotions_select(characters_id)
 
-        return jsonify(characters_id = result[9], 
+        return jsonify(id = characters_id, 
+        name = character_name(characters_id),
+        wordcloud = character_name(characters_id).replace(" ","") + 'Wordcloud.png',
+        spells = spells,
         emotions={"anger":result[1], 
                    "fear": result[2], 
                     "anticipation": result[3],
@@ -160,8 +170,7 @@ class Emotions(Resource):
                   },
         max_emotion = max(result[1:9]),
         min_emotion = min(result[1:9]))
-api.add_resource(Emotions, '/characters/<characters_id>/emotions')
-
+api.add_resource(Characters_info, '/characters/<characters_id>/info')
 
 ## 4. 죽음을 먹는 자들 테스트 api => 프론트엔드에서 처리하기로 함
 ## 5. 해리 포터 밸런스 게임 페이지 api ->프론트엔드 이상없음
