@@ -23,13 +23,17 @@ db = UseDB()
 # result = db.random_data_format_select()
 # rand_num = random.randint(1,6)
 # print(result[rand_num][1])
-print(db.spells_search_hasid(5) == None)
-print(db.spells_search_hasid(1) == None)
+# print(db.spells_all_series_select())
+print(db.spells_series_select(1))
 
-def character_name(id):
-    character_name = db.characters_name_select(id)[0]
-    return character_name
-    
-for row in db.series_speech_select(30):
-    if db.spells_search_hasid(row[0]) != None:
-        print(character_name(row[0]))
+series_dict = {
+	1: "해리 포터와 마법사의 돌",
+	2: "해리 포터와 비밀의 방",
+	3: "해리 포터와 아즈카반의 죄수",
+	4: "해리 포터와 불의 잔",
+	5: "해리 포터와 불사조 기사단",
+	6: "해리 포터와 혼혈 왕자",
+	7: "해리 포터와 죽음의 성물"
+}
+
+print(type(series_dict[1]))

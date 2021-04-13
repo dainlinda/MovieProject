@@ -47,8 +47,6 @@ api = Api(app)
 swagger = Swagger(app, config=swagger_config, template=template)
 
 #------------------------------------------------------------------------
-
-
 ## 1. 메인 페이지 랜덤편지 & 6. 랜덤 소설 페이지 
 # api 사용되는 랜덤 데이터 함수
 def random_data():
@@ -81,6 +79,7 @@ class RandomNovels(Resource):
         return jsonify(novel = novel)
 api.add_resource(RandomNovels, '/random/novels')
 
+
 ## 2. 해리 포터 시리즈 분석 페이지
 # api 사용되는 캐릭터 이름 뽑아오기 함수
 def character_name(id):
@@ -98,8 +97,38 @@ class Series_speech(Resource):
             top4.append({'characters_id': row[0],'character_name': character_name(row[0])})
         return jsonify(top20 = top20, top4 = top4)
 api.add_resource(Series_speech, '/series/speech')
+# 시리즈 별 영화 제목 딕셔너리
+series_dict = {
+    1: "해리 포터와 마법사의 돌",
+    2: "해리 포터와 비밀의 방",
+    3: "해리 포터와 아즈카반의 죄수",
+    4: "해리 포터와 불의 잔",
+    5: "해리 포터와 불사조 기사단",
+    6: "해리 포터와 혼혈 왕자",
+    7: "해리 포터와 죽음의 성물"
+}
+# 2-2. 전체 시리즈 및 시리즈별 주문빈도수 api
+class Series_spell(Resource):
+    @swag_from("swagger_config/series_spell.yml")
+    def get(self):
 
-# 2-2. 시리즈별 주문빈도수 api
+        all_series = {}
+        # ----
+        series = []
+        each_series = {}
+        spell = {}
+        for all in db.spells_all_series_select():
+            all_series[all[0]] = all[1]
+        for i in range(1,8):
+            each_series["title"] = series_dict[i], 
+            for row in db.spells_series_select(i):
+                spell[row[1]] = row[2]
+            each_series["spell"] = spell
+            series.append(each_series)
+            spell = {}
+            each_series = {}
+        return jsonify(all_series = all_series, series = series)
+api.add_resource(Series_spell, '/series/spell')
 
 ## 3. 해리 포터 캐릭터 분석 페이지
 # 3-1. 캐릭터 api (id, 이름, 이미지, wordcloud)
@@ -112,7 +141,6 @@ class Characters(Resource):
                 characters.append({'id': row[0], 'name': character_name(row[0]), 'image': character_name(row[0]) + '.png', 'wordcloud': character_name(row[0]) + ' wordcloud.png'}) 
         return jsonify(characters = characters)
 api.add_resource(Characters, '/characters')
-
 # 3-2. 캐릭터별 마법주문 빈도 api
 # 3-3. 캐릭터별 정서 api
 class Emotions(Resource):
@@ -134,8 +162,8 @@ class Emotions(Resource):
         min_emotion = min(result[1:9]))
 api.add_resource(Emotions, '/characters/<characters_id>/emotions')
 
-## 4. 죽음을 먹는 자들 테스트 api => 프론트엔드에서 처리하기로 함
 
+## 4. 죽음을 먹는 자들 테스트 api => 프론트엔드에서 처리하기로 함
 ## 5. 해리 포터 밸런스 게임 페이지 api ->프론트엔드 이상없음
 # 밸런스 게임 문제 api 
 class BalanceGameOptions(Resource):
@@ -159,7 +187,7 @@ class BalanceGameResponses(Resource):
             left = result[1]
             right = result[2]
             total = left+right
-            return jsonify(balance_game_options_id = balance_game_options_id, left = left/total*100, right = right/total*100)
+            return jsonify(balance_game_options_id = balance_game_options_id, left = round(left/total*100), right = round(right/total*100))
         except:
             try:
                 db.balance_game_responses_insert(0, 0, balance_game_options_id)      
@@ -179,9 +207,8 @@ class BalanceGameResponses(Resource):
         right = result[2]+int(args['right'])
         total = left+right
         db.balance_game_responses_update(left,right,balance_game_options_id)
-        return jsonify(balance_game_options_id = balance_game_options_id, left = left/total*100, right = right/total*100)
+        return jsonify(balance_game_options_id = balance_game_options_id, left = round(left/total*100), right = round(right/total*100))
 api.add_resource(BalanceGameResponses, '/games/balance/response/<balance_game_options_id>')
-
 
 
 if __name__ == '__main__':
