@@ -63,6 +63,13 @@ class UseDB:
         with self.con.cursor() as cursor:
             cursor.execute(sql, (spells_id,characters_id))
         self.con.commit()
+    def spells_search_hasid(self, characters_id):
+        sql = ''' select * from spells_has_characters where characters_id = %s; '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (characters_id))
+            result = cursor.fetchone()
+        self.con.commit()
+        return result
     #balance_game_options
     def balance_game_options_select(self):
         sql = ''' select * from balance_game_options;  '''

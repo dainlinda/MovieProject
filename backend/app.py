@@ -93,7 +93,7 @@ class Series_speech(Resource):
         top20 = []
         top4 = []
         for row in db.series_speech_select(20):
-            top20.append({'characters_id': row[0],'speech_count': row[1]})
+            top20.append({'characters_id': row[0],'character_name': character_name(row[0]),'speech_count': row[1]})
         for row in db.series_speech_select(4):
             top4.append({'characters_id': row[0],'character_name': character_name(row[0])})
         return jsonify(top20 = top20, top4 = top4)
@@ -103,12 +103,15 @@ api.add_resource(Series_speech, '/series/speech')
 
 ## 3. 해리 포터 캐릭터 분석 페이지
 # 3-1. 캐릭터 api (id, 이름, 이미지, wordcloud)
-# class Characters(Resource):
-#     @swag_from("swagger_config/characters.yml")
-#     def get(self):
-#         pass
-#         return jsonify()
-# api.add_resource(Characters, '/characters')
+class Characters(Resource):
+    @swag_from("swagger_config/characters.yml")
+    def get(self):
+        characters = []
+        for row in db.series_speech_select(30):
+            if db.spells_search_hasid(row[0]) != None and row[0] != 'Alastor Moody':
+                characters.append({'id': row[0], 'name': character_name(row[0]), 'image': character_name(row[0]) + '.png', 'wordcloud': character_name(row[0]) + ' wordcloud.png'}) 
+        return jsonify(characters = characters)
+api.add_resource(Characters, '/characters')
 
 # 3-2. 캐릭터별 마법주문 빈도 api
 # 3-3. 캐릭터별 정서 api

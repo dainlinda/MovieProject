@@ -23,4 +23,13 @@ db = UseDB()
 # result = db.random_data_format_select()
 # rand_num = random.randint(1,6)
 # print(result[rand_num][1])
-print(db.characters_name_select(1)[0])
+print(db.spells_search_hasid(5) == None)
+print(db.spells_search_hasid(1) == None)
+
+def character_name(id):
+    character_name = db.characters_name_select(id)[0]
+    return character_name
+    
+for row in db.series_speech_select(30):
+    if db.spells_search_hasid(row[0]) != None:
+        print(character_name(row[0]))
