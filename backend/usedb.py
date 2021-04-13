@@ -23,6 +23,13 @@ class UseDB:
             result = cursor.fetchall()
         self.con.commit()
         return result
+    def characters_name_select(self, id):
+        sql = ''' select name from characters where id = %s;  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (id))
+            result = cursor.fetchone()
+        self.con.commit()
+        return result
     #speech
     def speech_insert(self, character,speech):
         sql = ''' insert into speech(`character`,`speech`)
@@ -105,8 +112,23 @@ class UseDB:
             cursor.execute(sql, (characters_id))
             result = cursor.fetchone()
         self.con.commit()
-        return result     
+        return result   
 
+    # 시리즈 캐릭터별 대사수
+    def series_speech_select(self, n):
+        sql = ''' SELECT speech_has_characters.characters_id, COUNT(speech.speech) 
+                    FROM speech
+                    INNER JOIN speech_has_characters
+                    ON speech.id = speech_has_characters.speech_id
+                    GROUP BY speech_has_characters.characters_id
+                    ORDER BY COUNT(speech.speech) DESC
+                    LIMIT %s;  '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (n))
+            result = cursor.fetchall()
+        self.con.commit()
+        return result     
+  
 
 if __name__ == "__main__":
     db = UseDB()

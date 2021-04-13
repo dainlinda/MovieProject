@@ -23,10 +23,4 @@ db = UseDB()
 # result = db.random_data_format_select()
 # rand_num = random.randint(1,6)
 # print(result[rand_num][1])
-
-result = db.balance_game_responses_select(1)
-left = result[1]+0
-right = result[2]+1
-db.balance_game_responses_update(left,right,1)
-msg = 'left: {left}, right: {right}'.format(left=left, right = right)
-print(msg)
+print(db.characters_name_select(1)[0])

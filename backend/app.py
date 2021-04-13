@@ -47,6 +47,8 @@ api = Api(app)
 swagger = Swagger(app, config=swagger_config, template=template)
 
 #------------------------------------------------------------------------
+
+
 ## 1. 메인 페이지 랜덤편지 & 6. 랜덤 소설 페이지 
 # api 사용되는 랜덤 데이터 함수
 def random_data():
@@ -80,17 +82,33 @@ class RandomNovels(Resource):
 api.add_resource(RandomNovels, '/random/novels')
 
 ## 2. 해리 포터 시리즈 분석 페이지
-# 2-1. 캐릭터별 대사수 api
+# api 사용되는 캐릭터 이름 뽑아오기 함수
+def character_name(id):
+    character_name = db.characters_name_select(id)[0]
+    return character_name
+# 2-1. 시리즈 캐릭터별 대사수 api
+class Series_speech(Resource):
+    @swag_from("swagger_config/series_speech.yml")
+    def get(self):
+        top20 = []
+        top4 = []
+        for row in db.series_speech_select(20):
+            top20.append({'characters_id': row[0],'speech_count': row[1]})
+        for row in db.series_speech_select(4):
+            top4.append({'characters_id': row[0],'character_name': character_name(row[0])})
+        return jsonify(top20 = top20, top4 = top4)
+api.add_resource(Series_speech, '/series/speech')
+
 # 2-2. 시리즈별 주문빈도수 api
 
 ## 3. 해리 포터 캐릭터 분석 페이지
 # 3-1. 캐릭터 api (id, 이름, 이미지, wordcloud)
-class Characters(Resource):
-    @swag_from("swagger_config/characters.yml")
-    def get(self):
-        pass
-        return jsonify()
-api.add_resource(Characters, '/characters')
+# class Characters(Resource):
+#     @swag_from("swagger_config/characters.yml")
+#     def get(self):
+#         pass
+#         return jsonify()
+# api.add_resource(Characters, '/characters')
 
 # 3-2. 캐릭터별 마법주문 빈도 api
 # 3-3. 캐릭터별 정서 api
@@ -115,8 +133,8 @@ api.add_resource(Emotions, '/characters/<characters_id>/emotions')
 
 ## 4. 죽음을 먹는 자들 테스트 api => 프론트엔드에서 처리하기로 함
 
-## 5. 해리 포터 밸런스 게임 페이지 api
-# 밸런스 게임 문제 api ->프론트엔드 이상없음
+## 5. 해리 포터 밸런스 게임 페이지 api ->프론트엔드 이상없음
+# 밸런스 게임 문제 api 
 class BalanceGameOptions(Resource):
     @swag_from("swagger_config/balance_game_options.yml")
     def get(self):
@@ -126,7 +144,7 @@ class BalanceGameOptions(Resource):
             options.append({'id': row[0], 'option1': row[1].split(' vs ')[0], 'option2': row[1].split(' vs ')[1] })
         return jsonify(options = options)
 api.add_resource(BalanceGameOptions, '/games/balance/option')
-# 밸런스 게임 응답 api
+# 밸런스 게임 응답 api 
 parser = reqparse.RequestParser()
 parser.add_argument('left')
 parser.add_argument('right')
