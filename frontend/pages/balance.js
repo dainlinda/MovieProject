@@ -3,9 +3,9 @@ import Layout from "../components/Layout";
 import balanceStyle from '../styles/balance.module.css'
 import axios from 'axios'
 import { Button } from 'react-bootstrap';
-import {HorizontalBar} from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 
-function Character(props) {
+function Balance(props) {
     const [number, setNumber] = useState(0);
     const [result, setResult] = useState([])
     console.log(props.balance.options);
@@ -56,17 +56,19 @@ function Character(props) {
     
     const onClickLeftHandler = () => {
         const data ={"left":1, "right":0}
-        axios.post('http://localhost:5000/games/balance/response/'+number,data).then(response => {
+        const choose = number + 1;
+        axios.post('http://localhost:5000/games/balance/response/'+choose,data).then(response => {
             console.log(response.data)
-            // setResult(response.data.balance_result);
+            setResult(response.data);
         });
     }
 
     const onClickRightHandler = () => {
-        const data ={"left":1, "right":0}
-        axios.post('http://localhost:5000/games/balance/response/'+number,data).then(response => {
+        const data ={"left":0, "right":1}
+        const choose = number + 1;
+        axios.post('http://localhost:5000/games/balance/response/'+choose,data).then(response => {
             console.log(response.data)
-            // setResult(response.data.balance_result);
+            setResult(response.data);
         });
     }
 
@@ -103,10 +105,10 @@ function Character(props) {
     </Layout>
     )
 }
-Character.getInitialProps = async function() {
+Balance.getInitialProps = async function() {
     const {data: balance} = await axios.get('http://localhost:5000/games/balance/option');
     return {
       balance
     };
   }
-export default Character;
+export default Balance;
