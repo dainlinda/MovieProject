@@ -1,7 +1,7 @@
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 
 const Header = () => (
-    <div>
+    <div style={{ transform: 'skew(-0.1deg)' }}>
         <Navbar expand="lg">
             <Navbar.Brand href="/">
                 <img src="/favicon2.ico" width="25" height="25" alt=""/>
@@ -9,13 +9,14 @@ const Header = () => (
             <Navbar.Brand href="/" style={{ color: 'white'}}>All About Harry Potter</Navbar.Brand>
             <Navbar.Toggle/>
             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                <Nav>
-                    <Nav.Link href="/series">해리포터 시리즈 분석</Nav.Link>
-                    <Nav.Link href="/character" >해리포터 캐릭터 분석</Nav.Link>
-                    <NavDropdown title="유저상호작용" id="basic-nav-dropdown" > 
-                        <NavDropdown.Item href="/novel" >랜덤 소설</NavDropdown.Item>
-                        <NavDropdown.Item href="/balance">밸런스 게임</NavDropdown.Item>
-                        <NavDropdown.Item href="/deathEaters">죽먹자 테스트</NavDropdown.Item>
+                <Nav className="navText">
+                    <Nav.Link href="/about">About</Nav.Link>
+                    <Nav.Link href="/series">Series</Nav.Link>
+                    <Nav.Link href="/character">Character</Nav.Link>
+                    <NavDropdown title="Activity" id="basic-nav-dropdown" > 
+                        <NavDropdown.Item href="/novel" >Random Novel</NavDropdown.Item>
+                        <NavDropdown.Item href="/balance">Balance Game</NavDropdown.Item>
+                        <NavDropdown.Item href="/deathEaters">DeathEaters Test</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
             </Navbar.Collapse>

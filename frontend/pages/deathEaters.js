@@ -1,30 +1,26 @@
 import Layout from "../components/Layout";
 import DeathEatersTest from '../components/deathEaters/deathEatersTest';
 import questionList from '../public/Data/deatheaters.json'
+import { Container, Row, Col } from 'react-bootstrap';
 
 function DeathEaters({ questionData }) {
 
     return (
         <Layout>
-            <div className="page-header" >
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div style={{ paddingTop: "100px" }}>
-                                <h2 style={{ fontSize: '46px', textAlign: 'center' }} >죽음을 먹는 자들 테스트</h2>
-                                <h3>당신이 얼마나 죽음을 먹는자에 가까운지 테스트를 해봅시다.</h3>
-                            </div>
+            <Container>
+                <Row>
+                    <Col>
+                        <div style={{ paddingTop: "100px" }}>
+                            <h2 style={{ fontSize: '46px', textAlign: 'center' }} >죽음을 먹는 자들 테스트</h2>
+                            <h3>당신이 얼마나 죽음을 먹는자에 가까운지 테스트를 해봅시다.</h3>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <br/>
+                    </Col>
+                </Row>
+            </Container>
             <DeathEatersTest props={questionData.data} />
         </Layout>
         )
 }
-
 
 
 export async function getStaticProps(context) {
