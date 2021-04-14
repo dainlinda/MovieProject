@@ -70,6 +70,40 @@ class UseDB:
             result = cursor.fetchone()
         self.con.commit()
         return result
+    def spells_all_series_select(self):
+        sql = ''' select spell, count(spell) as freq from spells
+                    group by spell
+                    order by count(spell) desc
+                    limit 20; '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        self.con.commit()
+        return result
+    def spells_character_select(self,characters_id):
+        sql = ''' select spells_has_characters.characters_id, spells.spell, count(*) as cnt 
+                    from spells_has_characters 
+                    inner join spells 
+                    on spells.id = spells_has_characters.spells_id
+                    where characters_id = %s
+                    group by spells_has_characters.characters_id, spells.spell 
+                    order by cnt desc limit 5; '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (characters_id))
+            result = cursor.fetchall()
+        self.con.commit()
+        return result
+    def spells_series_select(self, series):
+        sql = ''' select series, spell, count(spell) as freq
+                    from spells
+                    where series = %s
+                    group by series, spell
+                    order by freq DESC limit 5; '''
+        with self.con.cursor() as cursor:
+            cursor.execute(sql, (series))
+            result = cursor.fetchall()
+        self.con.commit()
+        return result
     #balance_game_options
     def balance_game_options_select(self):
         sql = ''' select * from balance_game_options;  '''

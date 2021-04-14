@@ -1,5 +1,5 @@
-summary: "emotions"
-description: "캐릭터 id로 요청했을 때 각 캐릭터별 정서분석 결과 보내주는 api"
+summary: "characters_info"
+description: "캐릭터 id로 요청했을 때 각 캐릭터별 정서분석 결과, 주문빈도수, wordcloud 이름 보내주는 api"
 consumes:
 - "application/json"
 produces:             
