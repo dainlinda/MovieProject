@@ -7,7 +7,7 @@ function DeathEaters({ questionData }) {
     return (
         <Layout>
             <div className="page-header" >
-                <div className="container">
+                <div className="container v-100">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div style={{ paddingTop: "100px" }}>
@@ -16,11 +16,9 @@ function DeathEaters({ questionData }) {
                             </div>
                         </div>
                     </div>
+                    <DeathEatersTest props={questionData.data} />
                 </div>
             </div>
-            <br/>
-            <br/>
-            <DeathEatersTest props={questionData.data} />
         </Layout>
         )
 }
