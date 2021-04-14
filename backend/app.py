@@ -1,6 +1,8 @@
 import random
 from flask import Flask, request, jsonify
 
+import json
+
 # Flasgger
 from flasgger import Swagger
 from flasgger.utils import swag_from
@@ -66,7 +68,7 @@ class RandomLetters(Resource):
         character1, character2, place, food, creature, spell, item = random_data()
         result = db.random_data_format_select()[0][1]
         letter = result.format(character1 = character1, character2 = character2, place = place, food = food, creature = creature, spell = spell, item = item)
-        return jsonify(letter = letter)
+        return {"letter" : letter}
 api.add_resource(RandomLetters, '/random/letters')
 # 랜덤 소설 api
 class RandomNovels(Resource):
@@ -76,7 +78,7 @@ class RandomNovels(Resource):
         rand_num = random.randint(1,6)
         result = db.random_data_format_select()[rand_num][1]
         novel = result.format(character1 = character1, character2 = character2, place = place, food = food, creature = creature, spell=spell, item = item)
-        return jsonify(novel = novel)
+        return {"novel" : novel}
 api.add_resource(RandomNovels, '/random/novels')
 
 
@@ -86,7 +88,7 @@ def character_name(id):
     character_name = db.characters_name_select(id)[0]
     return character_name
 # 2-1. 시리즈 캐릭터별 대사수 api
-class Series_speech(Resource):
+class Series_speech(Resource): 
     @swag_from("swagger_config/series_speech.yml")
     def get(self):
         top20 = []
@@ -95,7 +97,7 @@ class Series_speech(Resource):
             top20.append({'characters_id': row[0],'character_name': character_name(row[0]),'speech_count': row[1]})
         for row in db.series_speech_select(4):
             top4.append({'characters_id': row[0],'character_name': character_name(row[0])})
-        return jsonify(top20 = top20, top4 = top4)
+        return {"top20" : top20, "top4" : top4}
 api.add_resource(Series_speech, '/series/speech')
 # 시리즈 별 영화 제목 딕셔너리
 series_dict = {
@@ -108,7 +110,7 @@ series_dict = {
     7: "해리 포터와 죽음의 성물"
 }
 # 2-2. 전체 시리즈 및 시리즈별 주문빈도수 api
-class Series_spell(Resource):
+class Series_spell(Resource): #-----------------------------------------------------이슈
     @swag_from("swagger_config/series_spell.yml")
     def get(self):
 
@@ -120,14 +122,14 @@ class Series_spell(Resource):
         for all in db.spells_all_series_select():
             all_series[all[0]] = all[1]
         for i in range(1,8):
-            each_series["title"] = series_dict[i], 
+            each_series['title'] = series_dict[i], 
             for row in db.spells_series_select(i):
                 spell[row[1]] = row[2]
-            each_series["spell"] = spell
+            each_series['spell'] = spell
             series.append(each_series)
             spell = {}
             each_series = {}
-        return jsonify(all_series = all_series, series = series)
+        return {'all_series' : all_series, 'series' : series}
 api.add_resource(Series_spell, '/series/spell')
 
 ## 3. 해리 포터 캐릭터 분석 페이지
@@ -139,11 +141,10 @@ class Characters(Resource):
         for row in db.series_speech_select(30):
             if db.spells_search_hasid(row[0]) != None and row[0] != 'Alastor Moody':
                 characters.append({'id': row[0], 'name': character_name(row[0]), 'image': character_name(row[0]).replace(" ","") + '.png'}) 
-        return jsonify(characters = characters)
+        return {"characters" : characters}
 api.add_resource(Characters, '/characters')
-
 # 3-2번 페이지 정보 받아오는 api
-class Characters_info(Resource):
+class Characters_info(Resource): #-----------------------------------------------------이슈
     @swag_from("swagger_config/characters_info.yml")
     def get(self,characters_id=None):
         # 3-1. 워드클라우드 API
@@ -155,11 +156,11 @@ class Characters_info(Resource):
         # 3-3. 캐릭터별 정서 api
         result = db.emotions_select(characters_id)
 
-        return jsonify(id = characters_id, 
-        name = character_name(characters_id),
-        wordcloud = character_name(characters_id).replace(" ","") + 'Wordcloud.png',
-        spells = spells,
-        emotions={"anger":result[1], 
+        return {"id" : characters_id, 
+        "name" : character_name(characters_id),
+        "wordcloud" : character_name(characters_id).replace(" ","") + 'Wordcloud.png',
+        "spells" : spells,
+        "emotions" : {"anger":result[1], 
                    "fear": result[2], 
                     "anticipation": result[3],
                     "trust": result[4],
@@ -168,8 +169,8 @@ class Characters_info(Resource):
                     "joy": result[7],
                     "disgust": result[8]
                   },
-        max_emotion = max(result[1:9]),
-        min_emotion = min(result[1:9]))
+        "max_emotion" : max(result[1:9]),
+        "min_emotion" : min(result[1:9])}
 api.add_resource(Characters_info, '/characters/<characters_id>/info')
 
 ## 4. 죽음을 먹는 자들 테스트 api => 프론트엔드에서 처리하기로 함
@@ -182,7 +183,7 @@ class BalanceGameOptions(Resource):
         options = []
         for row in result:
             options.append({'id': row[0], 'option1': row[1].split(' vs ')[0], 'option2': row[1].split(' vs ')[1] })
-        return jsonify(options = options)
+        return {"options" : options}
 api.add_resource(BalanceGameOptions, '/games/balance/option')
 # 밸런스 게임 응답 api 
 parser = reqparse.RequestParser()
@@ -196,13 +197,13 @@ class BalanceGameResponses(Resource):
             left = result[1]
             right = result[2]
             total = left+right
-            return jsonify(balance_game_options_id = balance_game_options_id, left = round(left/total*100), right = round(right/total*100))
+            return {"balance_game_options_id" : balance_game_options_id, "left" : round(left/total*100), "right" : round(right/total*100)}
         except:
             try:
                 db.balance_game_responses_insert(0, 0, balance_game_options_id)      
-                return jsonify(balance_game_options_id = balance_game_options_id, left = 0, right = 0)
+                return {"balance_game_options_id" : balance_game_options_id, "left" : 0, "right" : 0}
             except:
-                return('{i}번에 해당하는 밸런스 게임 문제가 없는 거 같아요! 다시 확인해주세요!'.format(i=balance_game_options_id))
+                return '{i}번에 해당하는 밸런스 게임 문제가 없는 거 같아요! 다시 확인해주세요!'.format(i=balance_game_options_id)
     @swag_from("swagger_config/balance_game_options_post.yml")
     def post(self, balance_game_options_id=None):
         args = parser.parse_args()
@@ -216,7 +217,7 @@ class BalanceGameResponses(Resource):
         right = result[2]+int(args['right'])
         total = left+right
         db.balance_game_responses_update(left,right,balance_game_options_id)
-        return jsonify(balance_game_options_id = balance_game_options_id, left = round(left/total*100), right = round(right/total*100))
+        return {"balance_game_options_id" : balance_game_options_id, "left" : round(left/total*100), "right" : round(right/total*100)}
 api.add_resource(BalanceGameResponses, '/games/balance/response/<balance_game_options_id>')
 
 
