@@ -1,31 +1,31 @@
 @charset "utf-8";
 
 .title {
-	text-align: center;
-	color: #FFF;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 90vh;
-	letter-spacing: 1px;
+    text-align: center;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    letter-spacing: 1px;
 }
 
 .h1 {
-	background-image: url(../public/images/errorbg.gif);
-	background-size: cover;
-	color: transparent;
-	-moz-background-clip: text;
-	-webkit-background-clip: text;
+    background-image: url(../public/images/errorbg.gif);
+    background-size: cover;
+    color: transparent;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
     -ms-user-select: none; 
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-	text-transform: uppercase;
-	font-size: 120px;
-	line-height: .75;
-	margin: 10px 0;
+    text-transform: uppercase;
+    font-size: 120px;
+    line-height: .75;
+    margin: 10px 0;
 }
 
 
