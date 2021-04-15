@@ -10,29 +10,23 @@ from sklearn.feature_extraction.text import CountVectorizer
 # 1. 대본 전처리
 
 def process_df(file_path):
-
     def explode(df, lst_cols, fill_value='', preserve_index=False):
         idx_cols = df.columns.difference(lst_cols)
         lens = df[lst_cols[0]].str.len()
         idx = np.repeat(df.index.values, lens)
-
         res = (pd.DataFrame({
                     col:np.repeat(df[col].values, lens)
                     for col in idx_cols},
                     index=idx)
                  .assign(**{col:np.concatenate(df.loc[lens>0, col].values)
                                 for col in lst_cols}))
-
         if (lens == 0).any():
             res = (res.append(df.loc[lens==0, idx_cols], sort=False)
-                      .fillna(fill_value))
-            
+                      .fillna(fill_value))    
         res = res.sort_index()
-        
         if not preserve_index:        
             res = res.reset_index(drop=True)
         return res
-
     df = pd.read_csv(file_path)
     df['dialog_processed']=df['dialog'].apply(lambda s: sent_tokenize(str(s).lower()))
     return explode(df,['dialog_processed'])
@@ -48,7 +42,6 @@ remove_punctuation_dict = {',':'','.':'','!':'','?':''}
 all_movies_df = all_movies_df.replace({'dialog_processed': remove_punctuation_dict})
 
 all_movies_df = all_movies_df[all_movies_df.dialog_processed.apply(lambda x: len(str(x)) > 1)]
-
 dialog_df = all_movies_df[['character', 'dialog_processed']]
 
 # 2. 워드 클라우드
@@ -63,15 +56,11 @@ def word_cloud(characters):
         new_stopwords = stopwords.words("english")
         add_stopwords = ["sir", "mr","may","must", "i'm", "i'll", "let's", "would","could"]
         new_stopwords.extend(add_stopwords)
-
         cv=CountVectorizer(stop_words = new_stopwords)
-        
         X = cv.fit_transform(corpus)
         X = X.toarray()
-
         bow = pd.DataFrame(X, columns = cv.get_feature_names())
         bow.index = characters
-      
         for character in characters:
             text = bow.loc[character].sort_values(ascending=False)[:100]
             text_dict = text.to_dict()
@@ -84,8 +73,9 @@ def word_cloud(characters):
                 colormap="Blues"
             else:
                 colormap=None
-            wordcloud = WordCloud(width = 600, height = 600, mask=hat_mask, min_font_size=12, max_font_size=32, mode = "RGBA", background_color=None, colormap=colormap, relative_scaling=.5)
+            wordcloud = WordCloud(width = 600, height = 600, mask=hat_mask, min_font_size=7, max_font_size=32, mode = "RGBA", background_color=None, colormap=colormap)
             wordcloud = wordcloud.generate_from_frequencies(text_dict)
+            plt.figure(figsize=(12,12))
             plt.imshow(wordcloud, interpolation="bilinear")
             plt.tight_layout(pad=0)
             plt.axis("off")
