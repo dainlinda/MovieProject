@@ -29,7 +29,6 @@ function DeathEaters({ questionData }) {
 }
 
 
-
 export async function getStaticProps(context) {
 
     const questionData = questionList;

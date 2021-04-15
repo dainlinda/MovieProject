@@ -1,0 +1,16 @@
+summary: "characters_info"
+description: "캐릭터 id로 요청했을 때 각 캐릭터별 정서분석 결과, 주문빈도수, wordcloud 이름 보내주는 api"
+consumes:
+- "application/json"
+produces:             
+- "application/json"
+parameters:
+- in: path
+  name: characters_id
+  description: "캐릭터 id를 parameter로 받는다"
+  required: true
+  type: integer
+  default: 1
+responses:
+  405:
+    description: "Invalid input"

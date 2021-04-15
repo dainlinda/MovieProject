@@ -1,0 +1,4 @@
+summary: "random_novels"
+description: "랜덤 소설 포맷에 랜덤 데이터를 결합해 보내주는 api"
+produces:
+- "application/json"

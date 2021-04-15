@@ -108,6 +108,7 @@ function Series({ charaterData, spellsData }) {
                                 display: true, 
                                 position: "top",
                                 labels: {
+                                    // color: 'white',
                                     fontColor: "white",
 
                                 } },
@@ -126,6 +127,7 @@ function Series({ charaterData, spellsData }) {
     return (
         <Layout>
             <Container style={{ marginTop: '40px' }}>
+            {/* Todo : component 로 찢기 */}
             {isPc && 
             <>
                 <p className={seriesStyles.pageTitle}>전체 시리즈 대사량 그래프</p><br/>
@@ -347,7 +349,7 @@ export async function getStaticProps(context) {
     const spellsData = spellsRes.data;
 
     return {
-        props: { charaterData, spellsData }, // will be passed to the page component as props
+        props: { charaterData, spellsData }
     }
 }
 
