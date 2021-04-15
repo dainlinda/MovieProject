@@ -86,8 +86,11 @@ api.add_resource(RandomNovels, '/random/novels')
 ## 2. 해리 포터 시리즈 분석 페이지
 # api 사용되는 캐릭터 이름 뽑아오기 함수
 def character_name(id):
-    character_name = db.characters_name_select(id)[0]
+    character_name = db.characters_name_dorm_select(id)[0]
     return character_name
+def character_dorm(id):
+    character_dorm = db.characters_name_dorm_select(id)[1]
+    return character_dorm
 # 2-1. 시리즈 캐릭터별 대사수 api
 class Series_speech(Resource): 
     @swag_from("swagger_config/series_speech.yml")
@@ -111,7 +114,7 @@ series_dict = {
     7: "해리 포터와 죽음의 성물"
 }
 # 2-2. 전체 시리즈 및 시리즈별 주문빈도수 api
-class Series_spell(Resource): #-----------------------------------------------------이슈
+class Series_spell(Resource): 
     @swag_from("swagger_config/series_spell.yml")
     def get(self):
 
@@ -145,7 +148,7 @@ class Characters(Resource):
         return {"characters" : characters}
 api.add_resource(Characters, '/characters')
 # 3-2번 페이지 정보 받아오는 api
-class Characters_info(Resource): #-----------------------------------------------------이슈
+class Characters_info(Resource): 
     @swag_from("swagger_config/characters_info.yml")
     def get(self,characters_id=None):
         # 3-1. 워드클라우드 API
@@ -159,6 +162,7 @@ class Characters_info(Resource): #----------------------------------------------
 
         return {"id" : characters_id, 
         "name" : character_name(characters_id),
+        "dorm" : character_dorm(characters_id),
         "wordcloud" : character_name(characters_id).replace(" ","") + 'Wordcloud.png',
         "spells" : spells,
         "emotions" : {"anger":result[1], 
