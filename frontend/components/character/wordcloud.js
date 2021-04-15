@@ -1,20 +1,18 @@
 import axios from 'axios'
+import Image from 'next/image'
+import url from '../../../config/config'
 
-const Wordcloud = (props) => (
+function Wordcloud(props) { 
+  const src = '/images/wordcloud/'+props.props
+  return (
     <div>
-        <h1>{props.id}</h1>
+      <Image 
+        src= {src}
+        alt="Picture of the author"
+        width={563}
+        height={423}
+        />
     </div>
   )
-  
-  Wordcloud.getInitialProps = 
-    async function() {
-    const res = await axios.get('https://api.tvmaze.com/search/shows?q=batman')
-    const data = await res.data
-    console.log(data);
-  
-    return {
-      data: data
-    }
-  }
-  
-  export default Wordcloud
+}
+export default Wordcloud
