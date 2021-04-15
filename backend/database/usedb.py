@@ -28,8 +28,8 @@ class UseDB:
         self.con.commit()
         return result
 
-    def characters_name_select(self, id):
-        sql = ''' select name from characters where id = %s;  '''
+    def characters_name_dorm_select(self, id):
+        sql = ''' select name, dorm from characters where id = %s;  '''
         with self.con.cursor() as cursor:
             cursor.execute(sql, (id))
             result = cursor.fetchone()
