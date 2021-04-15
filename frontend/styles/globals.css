@@ -9,10 +9,18 @@
 
 html,
 body,div,ul,li,dl,dd,dt,ol,h1,h2,h3,h4,h5,h6,input,fieldset,legend,p,select,table,th,td,tr,textarea,button,form,figure,figcaption {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, "HeirofLightBold", BlinkMacSystemFont, Segoe UI, Roboto, Oxygen !important;
-    /* Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, "HeirofLightBold", BlinkMacSystemFont, Segoe UI, Roboto, Oxygen !important;
+}
+
+p {
+    font-size: 1.2rem;
+    transform: skew(-0.1deg);
+}
+
+.navText{
+    font-size: 1.1rem;
 }
 
 a {
@@ -24,16 +32,22 @@ a:hover {
     text-decoration: underline;
 }
 
-p {
-    font-size: 1.2rem;
-}
-
-.navText{
-    font-size: 1.1rem;
-}
-
 * {
     box-sizing: border-box;
+}
+
+.layout {
+    text-align: center;
+    position: relative;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    color: #fff; font-weight: 600; text-align: center;
+}
+
+.layout p {
+    transform: skew(-0.1deg);
 }
 
 .stars, .twinkling {
@@ -49,12 +63,12 @@ p {
 
 .stars {
     background:#000 url(../public/images/stars.png) repeat top center;
-    z-index:-2;
+    z-index:-10;
 }
 
 .twinkling{
     background:transparent url(../public/images/twinkling.png) repeat top center;
-    z-index:-1;
+    z-index:-9;
     -moz-animation:move-twink-back 200s linear infinite;
     -ms-animation:move-twink-back 200s linear infinite;
     -o-animation:move-twink-back 200s linear infinite;
@@ -82,12 +96,13 @@ p {
     to {background-position:-10000px 5000px;}
 }
 
-.layout {
-    text-align: center;
-    position: relative;
-    min-height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    color: #fff; font-weight: 600; text-align: center;
+
+@keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+/* 반응형 */
+@media (max-width: 375px){
+    .navbar-brand { margin-right : 0 !important; }
 }

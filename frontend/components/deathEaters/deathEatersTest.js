@@ -12,7 +12,6 @@ function DeathEatersTest( questionData ) {
     const [count, setCount] = useState(0)
     const [resultView, setResultView] = useState(false);
 
-
     useEffect(() => {
         
         setAllList(questionData.props)
@@ -22,7 +21,7 @@ function DeathEatersTest( questionData ) {
     const onClickPointHandler = (e) => {
         
         e.preventDefault();
-        setCount(e.currentTarget.value)
+        setCount(count + parseInt(e.target.dataset.value))
         setIndex(index + 1)
 
     }
@@ -35,9 +34,7 @@ function DeathEatersTest( questionData ) {
         query : "(max-width:769px)"
     });
 
-
     function CallAnswers() {
-        
         let now = ((index+1) / allList.length) * 100
         const questionText = allList[index].question.split("* ");
 
@@ -46,6 +43,7 @@ function DeathEatersTest( questionData ) {
                 <div style={{ margin: "50px auto", width: '70%' }}>
                     <ProgressBar variant="dark" now={now} />
                 </div>
+                
                 <div>
                     {questionText.map((text, idx) => (
                         <p key={idx}>
@@ -114,9 +112,10 @@ function DeathEatersTest( questionData ) {
                 </>
             )
         }
+        
     }
 
-
+    
     const onClickResultHandler = (e) => {
         setResultView(false)
         setIndex(-1)
