@@ -64,7 +64,7 @@ def word_cloud(characters):
         for character in characters:
             text = bow.loc[character].sort_values(ascending=False)[:100]
             text_dict = text.to_dict()
-            hat_mask = np.array(Image.open('wizard_hat5.jpeg'))
+            hat_mask = np.array(Image.open('wizard_hat5.png'))
             if character in gryffindor_characters:
                 colormap="OrRd"
             elif character in slytherin_characters:
@@ -73,9 +73,9 @@ def word_cloud(characters):
                 colormap="Blues"
             else:
                 colormap=None
-            wordcloud = WordCloud(width = 600, height = 600, mask=hat_mask, min_font_size=7, max_font_size=32, mode = "RGBA", background_color=None, colormap=colormap)
+            wordcloud = WordCloud(width = 600, height = 600, mask=hat_mask, min_font_size=4, max_font_size=36, mode = "RGBA", background_color=None, colormap=colormap)
             wordcloud = wordcloud.generate_from_frequencies(text_dict)
-            plt.figure(figsize=(12,12))
+            plt.figure(figsize=(10,10))
             plt.imshow(wordcloud, interpolation="bilinear")
             plt.tight_layout(pad=0)
             plt.axis("off")
