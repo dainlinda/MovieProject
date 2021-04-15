@@ -25,25 +25,27 @@ function Index({ letterData }) {
     return (
     <Layout>
         <Container>
+            <Row className={indexStyles.pageCaption}>
+                <Col>
+                <Image
+                    priority
+                    src="/images/owlletter.png"
+                    width={900}
+                    height={560}
+                    onClick={onClickModalHandler}
+                    className={indexStyles.mainImg}
+                />
+                </Col>
+            </Row>
             <Row>
                 <Col>
-                    <div className={indexStyles.pageCaption}>
+                    <div >
                         <h1 className={indexStyles.pageTitle}>편지가 도착했습니다.</h1>
                     </div>
                 </Col>
             </Row>
         </Container>
-        <div >
-            <Image
-                priority
-                src="/images/owlletter.png"
-                width={600}
-                height={504}
-                onClick={onClickModalHandler}
-                className={indexStyles.mainImg}
-            />
-        </div>
-        {modal ? (
+        {modal && (
             <div className={indexStyles.modal} onClick={() => setModal(false)} >
                 <Image className={indexStyles.modalImg} priority src="/images/letter.png" width={600} height={750} />
                 <div className={indexStyles.caption}>
@@ -53,8 +55,6 @@ function Index({ letterData }) {
                 </div>
 
             </div>
-        ) : (
-            ""
         )}
     </Layout>
     )

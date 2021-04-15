@@ -34,7 +34,6 @@ function DeathEatersTest( questionData ) {
         query : "(max-width:769px)"
     });
 
-
     function CallAnswers() {
         let now = ((index+1) / allList.length) * 100
         const questionText = allList[index].question.split("* ");
@@ -117,12 +116,6 @@ function DeathEatersTest( questionData ) {
     }
 
     
-    const onClickResultHandler = (e) => {
-        setResultView(false)
-        setIndex(-1)
-        setCount(0)
-    }
-
     const onClickResultHandler = (e) => {
         setResultView(false)
         setIndex(-1)

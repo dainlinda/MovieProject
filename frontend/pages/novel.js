@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from "../components/Layout";
 import Image from 'next/image'
 import styles from '../styles/novel.module.css'
-import url from '../config/config'
+import url from '../../config/config'
 import axios from 'axios';
 import { useMediaQuery } from "react-responsive"
 import { Container, Row, Col} from 'react-bootstrap';
@@ -26,8 +26,6 @@ function Novel({ novelData }) {
 
     useEffect(() => {
         
-        console.log(novelData.novel)
-        console.log(novelData.novel.split("space"))
         setNovelList(novelData.novel.split("space"))
 
     }, [])
@@ -174,7 +172,6 @@ function Novel({ novelData }) {
 export async function getServerSideProps(context) {
     const res = await axios.get( url + `/random/novels` )
     const novelData = res.data
-    console.log("novelData ", novelData)
 
     return {
         props: { novelData },

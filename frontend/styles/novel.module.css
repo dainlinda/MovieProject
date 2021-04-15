@@ -1,0 +1,66 @@
+.pageTitle { font-size: 43px; line-height: 1; color: #fff; font-weight: 600; text-align: center; }
+
+.caption { 
+    width: 55%;
+    position: absolute;
+    left: 50%;
+    top: 550px;
+    color: black;
+    transform: translate(-50%,-50%);
+    -ms-user-select: none; 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.row p, .row h1, .row h2, .row h3, .row h4 {
+    transform: skew(-0.1deg);
+}
+
+.pdtb {
+    padding-top: 100px;
+    padding-bottom: 60px;
+}
+
+/* 반응형 */
+@media (max-width: 1024px){
+    .caption { 
+        width: 75%;
+    }
+}
+
+@media (max-width: 769px){
+    .caption { 
+        position: relative;
+        left: 343px;
+        top: -200px;
+        color: black;
+        width: 85%;
+    }
+
+    .caption p, .caption h1, .caption h2, .caption h3, .caption h4 {
+        font-size: 1rem !important;
+        transform: skew(-0.1deg);
+    }
+    
+}
+
+@media (max-width: 425px){
+    .caption { 
+        position: relative;
+        left: 50%;
+        top: -250px;
+        color: black;
+        width: 80%;
+    }
+    
+    .caption p, .caption h1, .caption h2, .caption h3, .caption h4 {
+        font-size: 0.7rem !important;
+        transform: skew(-0.1deg);
+        margin-bottom: 0.5rem;
+    }
+    
+    .pageTitle{
+        font-size: 2rem !important;
+    }
+}

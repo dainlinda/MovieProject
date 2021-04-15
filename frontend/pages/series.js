@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import seriesStyles from '../styles/series.module.css';
 import { Bar, Pie } from 'react-chartjs-2';
 import axios from 'axios';
-import url from '../config/config'
+import url from '../../config/config'
 import { Container, Row, Col } from 'react-bootstrap';
 import { useMediaQuery } from "react-responsive"
 
@@ -38,7 +38,7 @@ function Series({ charaterData, spellsData }) {
     }
 
     useEffect(() => {
-
+        
         setTop4List(charaterData.top4)
 
         charaterData.top20.map(function(character){
@@ -338,6 +338,7 @@ function Series({ charaterData, spellsData }) {
         </Layout>
     )
 }
+
 
 export async function getStaticProps(context) {
     
