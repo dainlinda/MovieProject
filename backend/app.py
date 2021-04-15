@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 from flask import Flask, request, jsonify
 
@@ -10,7 +11,7 @@ from flask_restful import reqparse, Api, Resource
 from flasgger import LazyString, LazyJSONEncoder
 
 # DB
-from usedb import UseDB
+from database.usedb import UseDB
 db = UseDB()
 
 #flask_cors 사용
@@ -139,7 +140,7 @@ class Characters(Resource):
     def get(self):
         characters = []
         for row in db.series_speech_select(30):
-            if db.spells_search_hasid(row[0]) != None and row[0] != 'Alastor Moody':
+            if db.spells_search_hasid(row[0]) != None and character_name(row[0]) != 'Alastor Moody':
                 characters.append({'id': row[0], 'name': character_name(row[0]), 'image': character_name(row[0]).replace(" ","") + '.png'}) 
         return {"characters" : characters}
 api.add_resource(Characters, '/characters')
