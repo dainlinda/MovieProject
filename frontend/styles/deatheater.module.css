@@ -4,6 +4,14 @@
     align-items: center;
 }
 
+.deH2 {
+    font-size: 46px;
+}
+
+.deH3 {
+    font-size: 26px;
+}
+
 .debtn {
     text-decoration: none;
     border: 1px solid rgb(255, 255, 255);
@@ -41,3 +49,22 @@
 .debtn:hover:before {
     left: 100%;
 }
+
+
+@media (max-width: 768px){
+    .deH2 {
+        font-size: 26px;
+    }
+    
+    .deH3 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 425px){
+    .deContainer {
+        font-size: 1rem;
+        transform: skew(-0.1deg);
+    }
+}
+

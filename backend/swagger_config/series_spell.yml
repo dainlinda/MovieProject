@@ -1,0 +1,7 @@
+summary: "series_spell"
+description: "전체 시리즈 top 20 주문, 각 시리즈 별 top5 주문 보내주는 api"
+produces:             
+- "application/json"
+responses:
+  405:
+    description: "Invalid input"

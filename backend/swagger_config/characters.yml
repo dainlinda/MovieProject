@@ -1,0 +1,7 @@
+summary: "characters"
+description: "대사빈도 상위 n명 캐릭터들 이름, 이미지, wordcloud 이미지 보내주는 api"
+produces:             
+- "application/json"
+responses:
+  405:
+    description: "Invalid input"

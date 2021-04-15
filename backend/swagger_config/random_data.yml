@@ -1,0 +1,4 @@
+summary: "random_data"
+description: "random으로 인물,장소,생물,음식,물건,마법주문 뿌려주는 api"
+produces:
+- "application/json"

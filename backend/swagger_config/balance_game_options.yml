@@ -1,0 +1,7 @@
+summary: "balance_game_options"
+description: "밸런스 게임 문제 가져오는 api"
+produces:
+- "application/json"
+responses:
+  200:
+    description: "successful result"
