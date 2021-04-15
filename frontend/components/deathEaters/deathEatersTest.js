@@ -123,6 +123,12 @@ function DeathEatersTest( questionData ) {
         setCount(0)
     }
 
+    const onClickResultHandler = (e) => {
+        setResultView(false)
+        setIndex(-1)
+        setCount(0)
+    }
+
     if (index < 0) {
         return (
             <Col>
