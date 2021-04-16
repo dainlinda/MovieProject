@@ -76,7 +76,6 @@ function Balance(props) {
         maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
     }
     const onClickNextHandler = (e) => {
-        console.log(number);
         if(number < props.balance.options.length-1){
             setNumber(number+1);
         }
@@ -97,9 +96,7 @@ function Balance(props) {
     const onClickRightHandler = () => {
         const data ={"left":0, "right":1}
         const choose = number + 1;
-        console.log(choose);
         axios.post(url+'/games/balance/response/'+choose,data).then(response => {
-            console.log(response.data);
             setResult(response.data);
         });
     }
@@ -111,19 +108,25 @@ function Balance(props) {
             </div>
             <div className="row">
                 <div className="col-5" onClick={onClickLeftHandler}>
-                    <Button variant="outline-light" className={balanceStyle.btn}>
-                        <h2>{props.balance.options[number].option1}</h2></Button>
+                    <div className="b_box">
+                        <h2 className={balanceStyle.content}>{props.balance.options[number].option1}</h2>
+                    </div>
                 </div>
                 <div className="col-2">
                     <h1 className={balanceStyle.vs}>vs</h1>
                 </div>
                 <div className="col-5" onClick={onClickRightHandler}>
-                    <Button variant="outline-light" className={balanceStyle.btn}>
-                        <h2>{props.balance.options[number].option2}</h2></Button>
+                    <div className="b_box">
+                        <h2 className={balanceStyle.content}>{props.balance.options[number].option2}</h2>
+                    </div>
                 </div>
             </div>
             <div className="row" style={{justifyContent:"center"}}>
-                <Button className={balanceStyle.nextbtn} variant="outline-light"  onClick={onClickNextHandler}>Next</Button>
+                <div className="col" style={{marginTop:50}}>
+                    <div className="n_box" onClick={onClickNextHandler}>
+                        <p className={balanceStyle.p}>Next</p>
+                    </div>
+                </div>
             </div>
             <div className="row" style={{width:"100%", padding: 50}}>
             {isPc && <>{ (result.left > 0 || result.right > 0 ) && <HorizontalBar
