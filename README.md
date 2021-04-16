@@ -84,7 +84,7 @@ https://www.kaggle.com/gulsahdemiryurek/harry-potter-datase  <br />
 
 ## 4. 프로젝트 구성도
 - 와이어프레임/스토리보드 추가 <br />
-![와이어프레임](uploads/ae7c827d11c2824816d2eb999a0c65dd/와이어프레임.png)
+https://whimsical.com/movie-character-analysis-team1-CKpKcGJS6MqDTdNRjkAakr
 
 ## 5. 프로젝트 팀원 역할 분담
 
