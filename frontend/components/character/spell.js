@@ -1,4 +1,5 @@
 import { Doughnut } from 'react-chartjs-2';
+import { useMediaQuery } from 'react-responsive';
 function Spell(props) {
     const gColor = ["rgba(189, 31, 0, 0.4)", "rgba(255, 69, 0, 0.4)", "rgba(210, 105, 30, 0.4)", "rgba(255, 215, 0, 0.4)", "rgba(210, 180, 140, 0.4)"]
     const rColor = ["rgba(0, 0, 139, 0.4)", "rgba(65, 105, 225, 0.4)", "rgba(135, 206, 250, 0.4)", "rgba(173, 216, 230, 0.4)", "rgba(119, 136, 153, 0.4)"]
@@ -6,6 +7,16 @@ function Spell(props) {
     const stickColor =  props.props.dorm == "Gryffindor" ? gColor : props.props.dorm == "Slytherin" ? sColor : rColor
     const key = Object.keys(props.props.spells)
     const value = Object.values(props.props.spells)
+
+    const isPc = useMediaQuery({
+        query : "(min-width:1024px)"
+    });
+      const isTablet = useMediaQuery({
+        query : "(min-width:426px) and (max-width:1023px)"
+    });
+      const isMobile = useMediaQuery({
+        query : "(max-width:425px)"
+    });
 
     function repeat(arr, len) {
     while (arr.length < len) arr = arr.concat(arr.slice(0, len-arr.length));
@@ -26,7 +37,6 @@ function Spell(props) {
     const options = {
         legend: {
             display: true, // label 숨기기
-            
         },
         scales: {
             xAxes: [{
@@ -40,12 +50,30 @@ function Spell(props) {
     }
   return (
     <div>
-      <Doughnut
+        {isPc && <>
+            <Doughnut
+                data={res_data}
+                options={options}
+                width={500}
+                height={400}
+            />
+        </>}
+        {isTablet && <>
+            <Doughnut
                 data={res_data}
                 options={options}
                 width={400}
                 height={300}
-          />
+        />
+        </>}
+        {isMobile && <>
+            <Doughnut
+                data={res_data}
+                options={options}
+                width={300}
+                height={200}/>
+        </>
+        }
     </div>
   )
 }

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import url from '../../../config/config'
 
 function Wordcloud(props) { 
+  
   const src = '/images/wordcloud/'+props.props
   return (
     <div>
