@@ -9,7 +9,7 @@ function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={className}
+      className={Carouselstyle.nextArrow}
       style={{ ...style, display: "block"}}
       onClick={onClick}
     />
@@ -20,8 +20,8 @@ function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={className}
-      style={{ ...style, display: "block", fontSize: 30}}
+      className={Carouselstyle.prevArrow}
+      style={{ ...style, display: "block"}}
       onClick={onClick}
     />
   );
@@ -30,7 +30,7 @@ function SamplePrevArrow(props) {
 function Carousel(props) {
   const settings = {
     infinite: true,
-    speed: 500,   
+    speed: 600,   
     slidesToShow: 5,
     slidesToScroll: 5,
     nextArrow: <SampleNextArrow />,
@@ -48,8 +48,8 @@ function Carousel(props) {
                       <Button variant="outline-light" className={Carouselstyle.carousel}>
                         <Image className={Carouselstyle.img}
                           priority
-                          width={100}
-                          height={100}
+                          width={105}
+                          height={105}
                           src={src}/>
                         <br/>
                         <p className={Carouselstyle.name}>{data.name}</p>
