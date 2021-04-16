@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button,ProgressBar } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import styles from '../../styles/deatheater.module.css'
 import { Row, Col} from 'react-bootstrap';
 import { useMediaQuery } from "react-responsive"
@@ -11,20 +11,8 @@ function DeathEatersTest( questionData ) {
     const [index, setIndex] = useState(-1)
     const [count, setCount] = useState(0)
     const [resultView, setResultView] = useState(false);
-
-    useEffect(() => {
-        
-        setAllList(questionData.props)
-
-    }, [])
-
-    const onClickPointHandler = (e) => {
-        
-        e.preventDefault();
-        setCount(count + parseInt(e.target.dataset.value))
-        setIndex(index + 1)
-
-    }
+    const [now, setNow] = useState(0)
+    const [progressStyle, setProgressStyle] = useState({});
 
     const isPc = useMediaQuery({
         query : "(min-width:770px)"
@@ -34,23 +22,50 @@ function DeathEatersTest( questionData ) {
         query : "(max-width:769px)"
     });
 
+    
+    useEffect(() => {
+        
+        setAllList(questionData.props)
+
+    }, [])
+
+    useEffect(() => {
+        
+        setNow(((index+1) / allList.length) * 100)
+
+    }, [index])
+
+    useEffect(() => {
+
+        setTimeout(() => {
+            const newStyle = {
+                opacity: 1, 
+                width: `${now}%`,
+            }
+            setProgressStyle(newStyle);
+        })
+
+    }, [now])
+    
+    const Progress = () => {
+        
+        return (
+        <div className={styles.deProgress}>
+            <div className={styles.deProgressDone} style={progressStyle}/>
+        </div>
+        )
+
+    }
+
     function CallAnswers() {
-        let now = ((index+1) / allList.length) * 100
         const questionText = allList[index].question.split("* ");
 
         return (
             <>
                 <div style={{ margin: "50px auto", width: '70%' }}>
-                    <ProgressBar variant="dark" now={now} />
+                    <Progress/>
                 </div>
-                
-                <div>
-                    {questionText.map((text, idx) => (
-                        <p key={idx}>
-                            {text}
-                        </p>
-                    ))}
-                </div>
+
                 {isPc &&
                     <div style={{ marginTop: "50px" }}>
                         <div className={styles.deContainer}>
@@ -115,7 +130,12 @@ function DeathEatersTest( questionData ) {
         
     }
 
-    
+    const onClickPointHandler = (e) => {
+        e.preventDefault();
+        setCount(count + parseInt(e.target.dataset.value))
+        setIndex(index + 1)
+    }
+
     const onClickResultHandler = (e) => {
         setResultView(false)
         setIndex(-1)
