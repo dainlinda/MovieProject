@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import Layout from "../components/Layout";
 import indexStyles from '../styles/index.module.css'
 import Image from 'next/image'
+
 import { Container, Row, Col } from 'react-bootstrap';
+
 import axios from 'axios';
 import url from '../../config/config'
 

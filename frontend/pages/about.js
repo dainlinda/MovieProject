@@ -1,3 +1,4 @@
+
 import Layout from "../components/Layout";
 import { Container, Row, Col} from 'react-bootstrap';
 import Image from 'next/image'

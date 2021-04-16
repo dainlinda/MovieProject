@@ -3,18 +3,10 @@ import Layout from "../components/Layout";
 import balanceStyle from '../styles/balance.module.css'
 import axios from 'axios'
 import { Button } from 'react-bootstrap';
-import { HorizontalBar, Bar } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 import url from '../../config/config'
-import { useMediaQuery } from 'react-responsive';
 
 function Balance(props) {
-    const isPc = useMediaQuery({
-        query : "(min-width:426px)"
-    });
-      const isMobile = useMediaQuery({
-        query : "(max-width:425px)"
-    });
-
     const [number, setNumber] = useState(0);
     const [result, setResult] = useState([])
     const res_data = {
@@ -26,11 +18,11 @@ function Balance(props) {
             // fill: false,
             backgroundColor: [
             'rgba(75, 192, 192, 0.4)',
-            'rgba(255, 215, 0, 0.4)'
+            'rgba(255, 206, 86, 0.4)'
             ],
             borderColor: [
             'rgba(75, 192, 192, 1)',
-            'rgba(255, 215, 0, 1)'
+            'rgba(255, 206, 86, 1)'
             ],
             color: '#666',
             borderWidth: 1
@@ -48,26 +40,6 @@ function Balance(props) {
                 }
             }],
             yAxes: [{
-                ticks: {
-                    fontColor : "white"
-                }
-            }],
-        },
-        maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
-    }
-    const m_options = {
-        legend: {
-            display: false, // label 숨기기
-        },
-        scales: {
-            yAxes: [{
-                ticks: { 
-                    fontColor : "white",
-                    min: 0, // 스케일에 대한 최솟갓 설정, 0 부터 시작
-                    stepSize: 10, // 스케일에 대한 사용자 고정 정의 값
-                }
-            }],
-            xAxes: [{
                 ticks: {
                     fontColor : "white"
                 }
@@ -108,6 +80,10 @@ function Balance(props) {
         <div className="container">
             <div className="row" style={{justifyContent:"center"}}>
                 <h1 className={balanceStyle.title}>🧙‍♂️ Balance Game 🧛‍♂️</h1>
+                <div className={balanceStyle.btn-container}>
+                    <span className={balanceStyle.mas}>MASK1</span>
+                    <button id={balanceStyle.work} type="button" name="hover">MASK1</button>
+                </div>
             </div>
             <div className="row">
                 <div className="col-5" onClick={onClickLeftHandler}>
@@ -126,22 +102,12 @@ function Balance(props) {
                 <Button className={balanceStyle.nextbtn} variant="outline-light"  onClick={onClickNextHandler}>Next</Button>
             </div>
             <div className="row" style={{width:"100%", padding: 50}}>
-            {isPc && <>{ (result.left > 0 || result.right > 0 ) && <HorizontalBar
+            { (result.left > 0 || result.right > 0 ) && <HorizontalBar
                 data={res_data}
                 options={options}
                 width={400}
                 height={150}
                 />
-            }</>}
-            {isMobile && <>
-                { (result.left > 0 || result.right > 0 ) && <Bar
-                    data={res_data}
-                    options={m_options}
-                    width={700}
-                    height={300}
-                    />
-                }
-            </>
             }
             </div>
         </div>
