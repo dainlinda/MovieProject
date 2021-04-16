@@ -73,8 +73,6 @@ function Balance(props) {
         axios.post(url+'/games/balance/response/'+choose,data).then(response => {
             console.log(response.data);
             setResult(response.data);
-            
-            console.log(result)
         });
     }
     return (
@@ -82,6 +80,10 @@ function Balance(props) {
         <div className="container">
             <div className="row" style={{justifyContent:"center"}}>
                 <h1 className={balanceStyle.title}>🧙‍♂️ Balance Game 🧛‍♂️</h1>
+                <div className={balanceStyle.btn-container}>
+                    <span className={balanceStyle.mas}>MASK1</span>
+                    <button id={balanceStyle.work} type="button" name="hover">MASK1</button>
+                </div>
             </div>
             <div className="row">
                 <div className="col-5" onClick={onClickLeftHandler}>

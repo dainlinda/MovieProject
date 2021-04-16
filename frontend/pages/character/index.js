@@ -20,6 +20,7 @@ export async function getStaticProps() {
 }
 
 function Character({characterData, data}) {
+    
     return (
     <Layout>
         <div className="container">
@@ -32,14 +33,14 @@ function Character({characterData, data}) {
                     <WordCloud props = {data.wordcloud}/>
                 </div>
                 <div className="col-6">
-                    <h3 className={characterStyle.title}>가장 많이 사용한 주문</h3>    
-                    <Spell props = {data.spells}/>
+                    <h3 className={characterStyle.title2}>가장 많이 사용한 주문</h3>    
+                    <Spell props = {data}/>
                 </div>
             </div>
             <div className="row">
-                <div className="col-12">
-                    <h3 className={characterStyle.title}>해리포터의 정서분석!</h3>
-                    <Emotion props = {data.emotions}/>
+                <div className="col-12 mt-5 py-md-5">
+                    <h3 className={characterStyle.title2}>{characterData.characters[0].name}의 정서분석!</h3>
+                    <Emotion props = {data}/>
                 </div>
             </div>
         </div>
