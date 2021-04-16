@@ -65,7 +65,15 @@ function DeathEatersTest( questionData ) {
                 <div style={{ margin: "50px auto", width: '70%' }}>
                     <Progress/>
                 </div>
-
+                
+                <div>
+                    {questionText.map((text, idx) => (
+                        <p key={idx}>
+                            {text}
+                        </p>
+                    ))}
+                </div>
+                
                 {isPc &&
                     <div style={{ marginTop: "50px" }}>
                         <div className={styles.deContainer}>

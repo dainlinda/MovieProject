@@ -68,7 +68,7 @@ function Novel({ novelData }) {
             </Row>
             <Row style={{ cursor: "pointer"}}>
                 <Col>
-                <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 편지 부탁하기</p>
+                <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 소설 부탁하기</p>
                 </Col>
             </Row>
         </>}
@@ -97,7 +97,7 @@ function Novel({ novelData }) {
             </Row>
             <Row style={{ cursor: "pointer"}}>
                 <Col>
-                    <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 편지 부탁하기</p>
+                    <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 소설 부탁하기</p>
                 </Col>
             </Row>
         </>}
@@ -128,7 +128,7 @@ function Novel({ novelData }) {
             </Row>
             <Row style={{ cursor: "pointer"}}>
                 <Col>
-                    <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 편지 부탁하기</p>
+                    <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 소설 부탁하기</p>
                 </Col>
             </Row>
         </>}
@@ -158,7 +158,7 @@ function Novel({ novelData }) {
             </Row>
             <Row style={{ cursor: "pointer"}}>
                 <Col>
-                <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 편지 부탁하기</p>
+                <p onClick={onClickNovelCallHandler}>부엉이에게 새로운 소설 부탁하기</p>
                 </Col>
             </Row>
         </>
