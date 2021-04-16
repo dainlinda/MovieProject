@@ -1,0 +1,30 @@
+summary: "balance_game_responses_post"
+description: "유저 응답 기록하는 api"
+consumes:
+- "application/json"
+produces:             
+- "application/json"
+parameters:
+- in: path
+  name: balance_game_options_id
+  description: "밸런스 게임 옵션 id를 parameter로 받는다"
+  required: true
+  type: integer
+  default: 1
+- name: left
+  in: formData
+  type: integer
+  required: true
+  x-example: 1
+  description: "유저가 왼쪽을 선택했을 경우 1을 값으로 받는다. 선택하지 않았을 경우 0을 받는다."
+- name: right
+  in: formData
+  type: integer
+  required: true
+  x-example: 0
+  description: "유저가 오른쪽을 선택했을 경우 1을 값으로 받는다. 선택하지 않았을 경우 0을 받는다."
+responses:
+  405:
+    description: "Invalid input"
+
+

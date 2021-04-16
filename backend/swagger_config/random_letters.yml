@@ -1,0 +1,4 @@
+summary: "random_letters"
+description: "정해진 편지 포맷에 랜덤 데이터를 결합해 보내주는 api"
+produces:
+- "application/json"

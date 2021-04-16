@@ -1,7 +1,4 @@
-summary: "balance_game_options"
-description: "밸런스 게임 문제 가져오는 api"
+summary: "random_data"
+description: "random으로 인물,장소,생물,음식,물건,마법주문 뿌려주는 api"
 produces:
 - "application/json"
-responses:
-  200:
-    description: "successful result"

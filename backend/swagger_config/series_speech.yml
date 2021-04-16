@@ -1,0 +1,7 @@
+summary: "series_speech"
+description: "대사빈도 상위 20명,4명 캐릭터들 아이디, 대사수 보내주는 api"
+produces:             
+- "application/json"
+responses:
+  405:
+    description: "Invalid input"

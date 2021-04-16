@@ -1,0 +1,225 @@
+.carousel{
+    background-color: transparent;
+    border: transparent;
+    margin: 50px 0;
+}
+
+.carousel:hover{
+    background-color: transparent;
+    border: white;
+    color: white;
+}
+
+.img{
+    border-radius: 15px;
+    width: 100px;
+    height: 100px;
+}
+
+.slider{
+   width: 900px; 
+}
+
+.nextArrow{
+    right: -35px;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.nextArrow::before{
+    content: '→';
+    font-family: 'slick';
+    font-size: 45px;
+    line-height: 0;
+    opacity: .45;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
+
+.prevArrow{
+    left: -45px;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.prevArrow::before{
+    content: '←';
+    font-family: 'slick';
+    font-size: 45px;
+    line-height: 0;
+    opacity: .45;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
+
+.prevArrow:hover{
+    color: white;
+    opacity: .95;
+}
+
+.nextArrow:hover{
+    color: white;
+    opacity: .95;
+}
+
+.name{
+    font-size: 1.2em;
+}
+
+@media (max-width: 1260px) { 
+    .carousel{
+        margin: 40px 0;
+    }
+    .slider{
+        width: 800px; 
+     }
+     .name{
+        font-size: 1.1em;
+    }
+    .prevArrow::before{ font-size: 40px;}
+    .nextArrow::before{ font-size: 40px;}
+}
+@media (max-width: 1200px) { 
+    .carousel{
+        margin: 40px 0;
+    }
+    .slider{
+        width: 750px; 
+     }
+     .name{
+        font-size: 1.1em;
+    }
+}
+@media (max-width: 1024px) { 
+    .carousel{
+        margin: 50px 0;
+    }
+    .slider{
+        width: 650px; 
+     }
+     .name{
+        font-size: 1.1em;
+    }
+    .prevArrow::before{ font-size: 42px; line-height: -1;}
+    .nextArrow::before{ font-size: 42px; }
+}
+@media (max-width: 990px) { 
+    .carousel{
+        margin: 40px 0;
+    }
+    .slider{
+        width: 700px; 
+     }
+     .name{
+        font-size: 1.1em;
+    }
+}
+
+/* Medium devices*/
+@media (max-width: 863px) { 
+    .carousel{
+        margin: 20px 0;
+    }
+    .slider{
+        width: 550px; 
+     }
+    .name{
+        font-size: 0.9em;
+    }
+}
+ 
+@media (max-width: 680px) { 
+    .carousel{
+        margin: 10px 0;
+    }
+    .slider{
+        width: 480px; 
+     }
+
+    .name{
+        font-size: 0.7em;
+    }
+    .prevArrow::before{ font-size: 35px;}
+    .nextArrow::before{ font-size: 35px;}
+}
+
+/* Small devices */
+@media (max-width: 580px) { 
+    .carousel{
+        margin: 5px 0;
+    }
+    .slider{
+        width: 420px; 
+    }
+
+    .name{
+        font-size: 1px;
+    }  
+    
+}
+
+@media (max-width: 520px){
+    .carousel{
+        margin: 0;
+    }
+    .slider{
+        width: 380px; 
+    }
+    .slider .slick-slide{
+        width: 30px;
+    }
+    .name{
+        font-size: 0.1em;
+    }
+}
+@media (max-width: 480px){
+    .carousel{
+        margin: 2px 0;
+    }
+    .slider{
+        width: 350px; 
+    }
+    
+    .name{
+        font-size: 0.1em;
+    }
+}
+@media (max-width: 375px){
+    .carousel{
+        margin-bottom: 10px;
+    }
+    .slider{
+        width: 260px; 
+    }
+    .name{
+        font-size: 0.1em;
+    }
+    .prevArrow::before{ font-size: 25px;}
+    .nextArrow::before{ font-size: 25px;}
+}
