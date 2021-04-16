@@ -7,7 +7,6 @@ import Spell from '../../components/character/spell';
 import Emotion from '../../components/character/emotion';
 import axios from 'axios';
 import url from '../../../config/config';
-import { useMediaQuery } from 'react-responsive';
 
 export async function getStaticProps() {
     const res_character = await axios.get(url+'/characters');
@@ -21,65 +20,31 @@ export async function getStaticProps() {
 }
 
 function Character({characterData, data}) {
-
-    const isPc = useMediaQuery({
-        query : "(min-width:426px)"
-    });
-      const isMobile = useMediaQuery({
-        query : "(max-width:425px)"
-    });
-
+    
     return (
-        <Layout>
-            {isPc && <>
-                <div className="container">
-                    <div className="row" style={{justifyContent:"center"}}>
-                        <Carousel characters={characterData.characters}/>
-                    </div>
-                    <div className="row">
-                        <div className="col-6">
-                            <h3 className={characterStyle.title}>wordcloud</h3>
-                            <WordCloud props = {data.wordcloud}/>
-                        </div>
-                        <div className="col-6">
-                            <h3 className={characterStyle.title2}>가장 많이 사용한 주문</h3>    
-                            <Spell props = {data}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 mt-5 py-md-5">
-                            <h3 className={characterStyle.title2}>{characterData.characters[0].name}의 정서분석!</h3>
-                            <Emotion props = {data}/>
-                        </div>
-                    </div>
+    <Layout>
+        <div className="container">
+            <div className="row" style={{justifyContent:"center"}}>
+            <Carousel characters={characterData.characters}/>
+            </div>
+            <div className="row">
+                <div className="col-6">
+                    <h3 className={characterStyle.title}>wordcloud</h3>
+                    <WordCloud props = {data.wordcloud}/>
                 </div>
-            </>}
-            {isMobile && <>
-                <div className="container">
-                    <div className="row" style={{justifyContent:"center"}}>
-                        <Carousel characters={characterData.characters}/>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <h3 className={characterStyle.title}>wordcloud</h3>
-                            <WordCloud props = {data.wordcloud}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <h3 className={characterStyle.title2}>가장 많이 사용한 주문</h3>    
-                            <Spell props = {data}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 mt-5 py-md-5">
-                            <h3 className={characterStyle.title2}>{characterData.characters[0].name}의 정서분석!</h3>
-                            <Emotion props = {data}/>
-                        </div>
-                    </div>
+                <div className="col-6">
+                    <h3 className={characterStyle.title2}>가장 많이 사용한 주문</h3>    
+                    <Spell props = {data}/>
                 </div>
-            </>}
-        </Layout>
+            </div>
+            <div className="row">
+                <div className="col-12 mt-5 py-md-5">
+                    <h3 className={characterStyle.title2}>{characterData.characters[0].name}의 정서분석!</h3>
+                    <Emotion props = {data}/>
+                </div>
+            </div>
+        </div>
+    </Layout>
     )
 }
 export default Character;
