@@ -9,8 +9,8 @@ function Wordcloud(props) {
       <Image 
         src= {src}
         alt="Picture of the author"
-        width={563}
-        height={423}
+        width={600}
+        height={600}
         />
     </div>
   )
